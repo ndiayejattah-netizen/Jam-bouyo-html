@@ -1,2012 +1,287 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JAM'BOUYO — Plateforme de Formation en Ligne</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
-<style>
-/* ══════════════════════════════════════
-   VARIABLES & RESET
-══════════════════════════════════════ */
-:root {
-  --navy: #0a0e1a;
-  --navy-mid: #0f1629;
-  --navy-light: #151e38;
-  --purple: #6c4bff;
-  --purple-light: #8b6fff;
-  --purple-glow: rgba(108,75,255,0.18);
-  --violet: #9b3dff;
-  --accent: #4fd1c5;
-  --accent2: #f472b6;
-  --white: #f8faff;
-  --white-dim: rgba(248,250,255,0.7);
-  --white-ghost: rgba(248,250,255,0.08);
-  --white-border: rgba(248,250,255,0.1);
-  --glass: rgba(15,22,41,0.7);
-  --glass-border: rgba(108,75,255,0.25);
-  --text-muted: rgba(248,250,255,0.45);
-  --font-head: 'Syne', sans-serif;
-  --font-body: 'DM Sans', sans-serif;
-  --radius: 16px;
-  --radius-lg: 24px;
-  --shadow: 0 8px 40px rgba(0,0,0,0.5);
-  --glow: 0 0 40px rgba(108,75,255,0.3);
-}
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-
-body {
-  font-family: var(--font-body);
-  background: var(--navy);
-  color: var(--white);
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-
-/* ══════════════════════════════════════
-   BACKGROUND EFFECTS
-══════════════════════════════════════ */
-.bg-mesh {
-  position: fixed; inset: 0; z-index: 0; pointer-events: none;
-  background:
-    radial-gradient(ellipse 80% 60% at 10% 10%, rgba(108,75,255,0.12) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 50% at 90% 80%, rgba(155,61,255,0.1) 0%, transparent 55%),
-    radial-gradient(ellipse 50% 40% at 50% 50%, rgba(79,209,197,0.04) 0%, transparent 60%);
-}
-
-.grid-bg {
-  position: fixed; inset: 0; z-index: 0; pointer-events: none;
-  background-image: 
-    linear-gradient(rgba(108,75,255,0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(108,75,255,0.05) 1px, transparent 1px);
-  background-size: 60px 60px;
-  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 100%);
-}
-
-/* ══════════════════════════════════════
-   SCROLLBAR
-══════════════════════════════════════ */
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: var(--navy); }
-::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 99px; }
-
-/* ══════════════════════════════════════
-   NAVIGATION
-══════════════════════════════════════ */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 40px;
-  height: 70px;
-  background: rgba(10,14,26,0.85);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--white-border);
-  transition: all 0.3s;
-}
-
-.nav-logo {
-  font-family: var(--font-head);
-  font-size: 22px;
-  font-weight: 800;
-  background: linear-gradient(135deg, var(--purple-light), var(--accent));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  letter-spacing: -0.5px;
-  cursor: pointer;
-}
-
-.nav-logo span { color: var(--accent); -webkit-text-fill-color: var(--accent); }
-
-.nav-links {
-  display: flex; gap: 32px; list-style: none;
-}
-
-.nav-links a {
-  color: var(--white-dim);
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 0.3px;
-  transition: color 0.2s;
-  cursor: pointer;
-}
-
-.nav-links a:hover { color: var(--white); }
-
-.nav-actions { display: flex; gap: 12px; align-items: center; }
-
-.btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 10px 22px;
-  border-radius: 99px;
-  font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.25s;
-  border: none;
-  text-decoration: none;
-}
-
-.btn-ghost {
-  background: var(--white-ghost);
-  color: var(--white-dim);
-  border: 1px solid var(--white-border);
-}
-.btn-ghost:hover { background: rgba(248,250,255,0.14); color: var(--white); }
-
-.btn-primary {
-  background: linear-gradient(135deg, var(--purple), var(--violet));
-  color: #fff;
-  box-shadow: 0 4px 20px rgba(108,75,255,0.4);
-}
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(108,75,255,0.5); }
-
-.btn-accent {
-  background: linear-gradient(135deg, var(--accent), #38bdf8);
-  color: var(--navy);
-  font-weight: 600;
-  box-shadow: 0 4px 20px rgba(79,209,197,0.35);
-}
-.btn-accent:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(79,209,197,0.45); }
-
-.btn-lg { padding: 14px 32px; font-size: 15px; border-radius: 99px; }
-
-.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
-.hamburger span { width: 22px; height: 2px; background: var(--white); border-radius: 2px; transition: all 0.3s; }
-
-/* ══════════════════════════════════════
-   PAGES SYSTEM
-══════════════════════════════════════ */
-.page { display: none; min-height: 100vh; }
-.page.active { display: block; }
-
-/* ══════════════════════════════════════
-   HERO
-══════════════════════════════════════ */
-.hero {
-  min-height: 100vh;
-  display: flex; align-items: center;
-  padding: 120px 40px 80px;
-  position: relative; z-index: 1;
-}
-
-.hero-content { max-width: 1200px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-
-.hero-badge {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 6px 16px 6px 6px;
-  background: var(--purple-glow);
-  border: 1px solid var(--glass-border);
-  border-radius: 99px;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--purple-light);
-  margin-bottom: 28px;
-  animation: fadeUp 0.6s ease both;
-}
-
-.hero-badge-dot {
-  width: 20px; height: 20px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--purple), var(--violet));
-  display: flex; align-items: center; justify-content: center;
-  font-size: 10px;
-}
-
-.hero h1 {
-  font-family: var(--font-head);
-  font-size: clamp(38px, 5vw, 62px);
-  font-weight: 800;
-  line-height: 1.08;
-  letter-spacing: -2px;
-  margin-bottom: 24px;
-  animation: fadeUp 0.6s 0.1s ease both;
-}
-
-.hero h1 em {
-  font-style: normal;
-  background: linear-gradient(135deg, var(--purple-light), var(--accent));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.hero-sub {
-  font-size: 17px;
-  line-height: 1.65;
-  color: var(--white-dim);
-  max-width: 480px;
-  margin-bottom: 36px;
-  animation: fadeUp 0.6s 0.2s ease both;
-}
-
-.hero-ctas {
-  display: flex; gap: 14px; flex-wrap: wrap;
-  animation: fadeUp 0.6s 0.3s ease both;
-}
-
-.hero-stats {
-  display: flex; gap: 40px; margin-top: 52px;
-  animation: fadeUp 0.6s 0.4s ease both;
-}
-
-.stat { display: flex; flex-direction: column; gap: 2px; }
-.stat-num { font-family: var(--font-head); font-size: 28px; font-weight: 800; background: linear-gradient(135deg, #fff, var(--purple-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-.stat-label { font-size: 13px; color: var(--text-muted); font-weight: 400; }
-
-/* HERO VISUAL */
-.hero-visual {
-  position: relative;
-  animation: fadeIn 0.8s 0.3s ease both;
-}
-
-.hero-card {
-  background: var(--glass);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-lg);
-  padding: 24px;
-  box-shadow: var(--shadow), var(--glow);
-  position: relative;
-  overflow: hidden;
-}
-
-.hero-card::before {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, transparent, var(--purple), transparent);
-}
-
-.hc-top { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
-.hc-avatar {
-  width: 42px; height: 42px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--purple), var(--violet));
-  display: flex; align-items: center; justify-content: center;
-  font-size: 18px;
-}
-.hc-info { flex: 1; }
-.hc-name { font-weight: 600; font-size: 14px; }
-.hc-role { font-size: 12px; color: var(--text-muted); }
-.hc-live {
-  display: flex; align-items: center; gap: 6px;
-  font-size: 11px; font-weight: 600; color: #4ade80;
-  background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.25);
-  padding: 4px 10px; border-radius: 99px;
-}
-.hc-live::before { content: ''; width: 6px; height: 6px; background: #4ade80; border-radius: 50%; animation: pulse 1.5s infinite; }
-
-.hc-screen {
-  background: var(--navy);
-  border-radius: 12px;
-  aspect-ratio: 16/9;
-  display: flex; align-items: center; justify-content: center;
-  position: relative;
-  overflow: hidden;
-  margin-bottom: 16px;
-}
-
-.hc-screen-content {
-  width: 100%; height: 100%;
-  background: linear-gradient(135deg, #0f1629 0%, #1a1040 100%);
-  display: flex; align-items: center; justify-content: center;
-  flex-direction: column; gap: 12px;
-}
-
-.slide-preview {
-  width: 85%; background: rgba(255,255,255,0.04); border-radius: 8px;
-  padding: 14px 16px; border: 1px solid rgba(255,255,255,0.07);
-}
-.slide-title { font-family: var(--font-head); font-size: 11px; font-weight: 700; color: var(--purple-light); margin-bottom: 8px; }
-.slide-lines { display: flex; flex-direction: column; gap: 5px; }
-.slide-line { height: 4px; border-radius: 2px; background: rgba(255,255,255,0.1); }
-.slide-line:nth-child(1) { width: 80%; }
-.slide-line:nth-child(2) { width: 65%; }
-.slide-line:nth-child(3) { width: 72%; }
-
-.participants-row {
-  display: flex; gap: 8px; align-items: center;
-}
-.p-avatar {
-  width: 30px; height: 30px; border-radius: 50%;
-  border: 2px solid var(--navy-mid);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 12px;
-}
-.p-avatar:nth-child(1) { background: linear-gradient(135deg, #6c4bff, #9b3dff); }
-.p-avatar:nth-child(2) { background: linear-gradient(135deg, #4fd1c5, #38bdf8); }
-.p-avatar:nth-child(3) { background: linear-gradient(135deg, #f472b6, #fb923c); }
-.p-count { font-size: 12px; color: var(--text-muted); margin-left: 4px; }
-
-.hc-actions { display: flex; gap: 8px; }
-.hc-btn {
-  flex: 1; padding: 10px;
-  background: var(--white-ghost); border: 1px solid var(--white-border);
-  border-radius: 10px; color: var(--white-dim); font-size: 18px;
-  cursor: pointer; transition: all 0.2s;
-  display: flex; align-items: center; justify-content: center;
-}
-.hc-btn:hover { background: var(--purple-glow); border-color: var(--glass-border); color: var(--white); }
-.hc-btn.danger:hover { background: rgba(239,68,68,0.15); border-color: rgba(239,68,68,0.3); }
-
-/* Floating badges on hero visual */
-.float-badge {
-  position: absolute;
-  background: var(--glass);
-  backdrop-filter: blur(16px);
-  border: 1px solid var(--glass-border);
-  border-radius: 12px;
-  padding: 10px 14px;
-  font-size: 12px;
-  font-weight: 500;
-  display: flex; align-items: center; gap: 8px;
-  box-shadow: var(--shadow);
-  animation: float 4s ease-in-out infinite;
-}
-
-.float-badge.top-left { top: -20px; left: -30px; animation-delay: 0s; }
-.float-badge.bottom-right { bottom: -20px; right: -30px; animation-delay: 2s; }
-
-/* ══════════════════════════════════════
-   SECTIONS
-══════════════════════════════════════ */
-section { position: relative; z-index: 1; }
-
-.container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
-
-.section-label {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-size: 12px; font-weight: 600; letter-spacing: 1.5px;
-  text-transform: uppercase; color: var(--purple-light);
-  margin-bottom: 16px;
-}
-
-.section-label::before {
-  content: ''; width: 20px; height: 2px;
-  background: linear-gradient(90deg, var(--purple), transparent);
-  border-radius: 2px;
-}
-
-.section-title {
-  font-family: var(--font-head);
-  font-size: clamp(28px, 4vw, 44px);
-  font-weight: 800;
-  letter-spacing: -1.5px;
-  line-height: 1.1;
-  margin-bottom: 16px;
-}
-
-.section-sub {
-  font-size: 16px;
-  color: var(--white-dim);
-  line-height: 1.6;
-  max-width: 560px;
-}
-
-/* ══════════════════════════════════════
-   FEATURES
-══════════════════════════════════════ */
-.features { padding: 100px 0; }
-
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  margin-top: 60px;
-}
-
-.feature-card {
-  background: var(--glass);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--white-border);
-  border-radius: var(--radius-lg);
-  padding: 28px;
-  transition: all 0.3s;
-  position: relative;
-  overflow: hidden;
-}
-
-.feature-card::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(135deg, var(--purple-glow), transparent 60%);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.feature-card:hover { border-color: var(--glass-border); transform: translateY(-4px); box-shadow: var(--glow); }
-.feature-card:hover::before { opacity: 1; }
-
-.feature-icon {
-  width: 48px; height: 48px;
-  background: var(--purple-glow);
-  border: 1px solid var(--glass-border);
-  border-radius: 14px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 22px; margin-bottom: 18px;
-  position: relative;
-}
-
-.feature-card h3 {
-  font-family: var(--font-head);
-  font-size: 17px; font-weight: 700;
-  margin-bottom: 10px;
-}
-
-.feature-card p {
-  font-size: 14px; color: var(--white-dim); line-height: 1.6;
-}
-
-/* ══════════════════════════════════════
-   COURSES GRID
-══════════════════════════════════════ */
-.courses-section { padding: 100px 0; background: var(--navy-mid); }
-
-.courses-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 48px; }
-
-.courses-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
-}
-
-.course-card {
-  background: var(--navy);
-  border: 1px solid var(--white-border);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  transition: all 0.3s;
-  cursor: pointer;
-}
-
-.course-card:hover { border-color: var(--glass-border); transform: translateY(-6px); box-shadow: var(--shadow), var(--glow); }
-
-.course-banner {
-  height: 140px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 44px;
-  position: relative;
-  overflow: hidden;
-}
-
-.course-banner::after {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(180deg, transparent 40%, rgba(10,14,26,0.6));
-}
-
-.course-body { padding: 20px; }
-.course-tag {
-  font-size: 10px; font-weight: 600; letter-spacing: 1px;
-  text-transform: uppercase; color: var(--purple-light);
-  background: var(--purple-glow); border: 1px solid var(--glass-border);
-  padding: 3px 10px; border-radius: 99px;
-  display: inline-block; margin-bottom: 10px;
-}
-.course-title {
-  font-family: var(--font-head); font-size: 16px; font-weight: 700;
-  margin-bottom: 8px; line-height: 1.3;
-}
-.course-desc { font-size: 13px; color: var(--text-muted); line-height: 1.55; margin-bottom: 16px; }
-.course-meta { display: flex; align-items: center; justify-content: space-between; padding-top: 16px; border-top: 1px solid var(--white-border); }
-.course-level { font-size: 12px; color: var(--white-dim); display: flex; align-items: center; gap: 5px; }
-.course-cta {
-  font-size: 12px; font-weight: 600; color: var(--purple-light);
-  display: flex; align-items: center; gap: 4px;
-}
-
-/* ══════════════════════════════════════
-   HOW IT WORKS
-══════════════════════════════════════ */
-.how-section { padding: 100px 0; }
-
-.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 60px; }
-
-.step {
-  text-align: center;
-  padding: 32px 24px;
-  background: var(--glass);
-  border: 1px solid var(--white-border);
-  border-radius: var(--radius-lg);
-  position: relative;
-  transition: all 0.3s;
-}
-
-.step:not(:last-child)::after {
-  content: '→';
-  position: absolute; right: -16px; top: 50%;
-  transform: translateY(-50%);
-  color: var(--text-muted); font-size: 18px; z-index: 2;
-}
-
-.step:hover { border-color: var(--glass-border); }
-
-.step-num {
-  width: 52px; height: 52px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--purple), var(--violet));
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-head); font-size: 20px; font-weight: 800;
-  margin: 0 auto 18px;
-  box-shadow: 0 4px 20px rgba(108,75,255,0.4);
-}
-
-.step h3 { font-family: var(--font-head); font-size: 16px; font-weight: 700; margin-bottom: 8px; }
-.step p { font-size: 13px; color: var(--text-muted); line-height: 1.55; }
-
-/* ══════════════════════════════════════
-   INSTRUCTORS
-══════════════════════════════════════ */
-.instructors { padding: 100px 0; background: var(--navy-mid); }
-
-.instructors-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 60px; }
-
-.instructor-card {
-  text-align: center; padding: 28px 20px;
-  background: var(--navy);
-  border: 1px solid var(--white-border);
-  border-radius: var(--radius-lg);
-  transition: all 0.3s;
-}
-
-.instructor-card:hover { border-color: var(--glass-border); transform: translateY(-4px); }
-
-.instructor-avatar {
-  width: 72px; height: 72px; border-radius: 50%;
-  margin: 0 auto 16px;
-  border: 3px solid var(--glass-border);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 28px;
-  position: relative;
-}
-
-.instructor-flag {
-  position: absolute; bottom: 0; right: 0;
-  width: 22px; height: 22px; border-radius: 50%;
-  border: 2px solid var(--navy);
-  background: var(--navy-light);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 11px;
-}
-
-.instructor-name { font-family: var(--font-head); font-size: 15px; font-weight: 700; margin-bottom: 4px; }
-.instructor-role { font-size: 12px; color: var(--text-muted); margin-bottom: 14px; }
-.instructor-tags { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
-.itag {
-  font-size: 10px; font-weight: 500;
-  background: var(--white-ghost);
-  border: 1px solid var(--white-border);
-  padding: 3px 8px; border-radius: 99px;
-  color: var(--white-dim);
-}
-
-/* ══════════════════════════════════════
-   CTA BANNER
-══════════════════════════════════════ */
-.cta-section { padding: 100px 0; }
-
-.cta-box {
-  background: linear-gradient(135deg, rgba(108,75,255,0.2), rgba(155,61,255,0.15));
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-lg);
-  padding: 70px;
-  text-align: center;
-  position: relative; overflow: hidden;
-}
-
-.cta-box::before {
-  content: '';
-  position: absolute; top: -50%; left: 50%; transform: translateX(-50%);
-  width: 400px; height: 400px;
-  background: radial-gradient(circle, rgba(108,75,255,0.15), transparent 70%);
-}
-
-.cta-box h2 { font-family: var(--font-head); font-size: clamp(28px, 4vw, 46px); font-weight: 800; letter-spacing: -1.5px; margin-bottom: 16px; position: relative; }
-.cta-box p { font-size: 16px; color: var(--white-dim); margin-bottom: 36px; position: relative; }
-.cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; }
-
-/* ══════════════════════════════════════
-   FOOTER
-══════════════════════════════════════ */
-footer {
-  background: var(--navy-mid);
-  border-top: 1px solid var(--white-border);
-  padding: 60px 0 30px;
-}
-
-.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px; }
-
-.footer-brand p { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-top: 12px; max-width: 260px; }
-
-.footer-col h4 { font-family: var(--font-head); font-size: 14px; font-weight: 700; margin-bottom: 18px; }
-.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-.footer-col li { font-size: 13px; color: var(--text-muted); cursor: pointer; transition: color 0.2s; }
-.footer-col li:hover { color: var(--white); }
-
-.footer-bottom {
-  padding-top: 24px; border-top: 1px solid var(--white-border);
-  display: flex; align-items: center; justify-content: space-between;
-}
-
-.footer-bottom p { font-size: 13px; color: var(--text-muted); }
-.footer-socials { display: flex; gap: 12px; }
-.social-btn {
-  width: 34px; height: 34px;
-  background: var(--white-ghost); border: 1px solid var(--white-border);
-  border-radius: 8px; display: flex; align-items: center; justify-content: center;
-  font-size: 15px; cursor: pointer; transition: all 0.2s;
-}
-.social-btn:hover { background: var(--purple-glow); border-color: var(--glass-border); }
-
-/* ══════════════════════════════════════
-   LOGIN PAGE
-══════════════════════════════════════ */
-.auth-page {
-  min-height: 100vh;
-  display: flex; align-items: center; justify-content: center;
-  padding: 100px 20px 40px;
-  position: relative; z-index: 1;
-}
-
-.auth-box {
-  width: 100%; max-width: 440px;
-  background: var(--glass);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-lg);
-  padding: 40px;
-  box-shadow: var(--shadow), var(--glow);
-  position: relative;
-}
-
-.auth-box::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, transparent, var(--purple), transparent);
-}
-
-.auth-title { font-family: var(--font-head); font-size: 26px; font-weight: 800; margin-bottom: 8px; }
-.auth-sub { font-size: 14px; color: var(--text-muted); margin-bottom: 32px; }
-
-.auth-tabs { display: flex; gap: 0; margin-bottom: 28px; background: var(--white-ghost); border-radius: 10px; padding: 4px; }
-.auth-tab {
-  flex: 1; padding: 9px; text-align: center; font-size: 14px; font-weight: 500;
-  border-radius: 8px; cursor: pointer; transition: all 0.25s; color: var(--text-muted);
-}
-.auth-tab.active { background: var(--purple); color: #fff; box-shadow: 0 2px 10px rgba(108,75,255,0.4); }
-
-.form-group { margin-bottom: 18px; }
-.form-label { font-size: 13px; font-weight: 500; color: var(--white-dim); margin-bottom: 8px; display: block; }
-.form-input {
-  width: 100%; padding: 12px 16px;
-  background: var(--white-ghost); border: 1px solid var(--white-border);
-  border-radius: 12px; color: var(--white); font-family: var(--font-body); font-size: 14px;
-  transition: all 0.2s; outline: none;
-}
-.form-input:focus { border-color: var(--purple); background: rgba(108,75,255,0.08); box-shadow: 0 0 0 3px rgba(108,75,255,0.15); }
-.form-input::placeholder { color: var(--text-muted); }
-
-.form-role { display: flex; gap: 10px; margin-bottom: 18px; }
-.role-btn {
-  flex: 1; padding: 12px; border-radius: 12px;
-  background: var(--white-ghost); border: 1px solid var(--white-border);
-  color: var(--text-muted); font-size: 13px; font-weight: 500;
-  cursor: pointer; transition: all 0.2s; text-align: center;
-}
-.role-btn.active { background: var(--purple-glow); border-color: var(--glass-border); color: var(--purple-light); }
-
-.form-submit { width: 100%; padding: 14px; margin-top: 8px; font-size: 15px; font-weight: 600; border-radius: 12px; }
-
-/* ══════════════════════════════════════
-   CLASSROOM PAGE
-══════════════════════════════════════ */
-.classroom-page {
-  min-height: 100vh;
-  padding-top: 70px;
-  display: grid;
-  grid-template-columns: 1fr 320px;
-  grid-template-rows: 1fr auto;
-  background: var(--navy);
-}
-
-.classroom-main { position: relative; overflow: hidden; }
-
-#jitsi-container {
-  width: 100%; height: 100%;
-  min-height: calc(100vh - 70px - 80px);
-  background: var(--navy-mid);
-  border-right: 1px solid var(--white-border);
-}
-
-.jitsi-placeholder {
-  width: 100%; height: 100%; min-height: calc(100vh - 150px);
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 20px; background: var(--navy-mid);
-}
-
-.jitsi-placeholder h2 { font-family: var(--font-head); font-size: 22px; }
-.jitsi-placeholder p { color: var(--text-muted); font-size: 14px; max-width: 400px; text-align: center; line-height: 1.6; }
-
-.jitsi-icon { font-size: 60px; opacity: 0.5; }
-
-.classroom-sidebar {
-  display: flex; flex-direction: column;
-  background: var(--navy-mid);
-  border-left: 1px solid var(--white-border);
-  height: calc(100vh - 70px);
-  overflow: hidden;
-}
-
-.sidebar-tabs { display: flex; border-bottom: 1px solid var(--white-border); }
-.sidebar-tab {
-  flex: 1; padding: 16px; text-align: center; font-size: 13px; font-weight: 500;
-  cursor: pointer; transition: all 0.2s; color: var(--text-muted);
-  border-bottom: 2px solid transparent;
-}
-.sidebar-tab.active { color: var(--purple-light); border-bottom-color: var(--purple); }
-
-.sidebar-content { flex: 1; overflow-y: auto; padding: 16px; }
-
-/* Chat */
-.chat-messages { display: flex; flex-direction: column; gap: 14px; }
-.chat-msg { display: flex; gap: 10px; }
-.cm-avatar {
-  width: 32px; height: 32px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 14px; flex-shrink: 0;
-}
-.cm-bubble { flex: 1; }
-.cm-name { font-size: 11px; font-weight: 600; color: var(--purple-light); margin-bottom: 4px; }
-.cm-text { font-size: 13px; color: var(--white-dim); background: var(--white-ghost); border-radius: 0 12px 12px 12px; padding: 10px 12px; line-height: 1.5; }
-.cm-time { font-size: 10px; color: var(--text-muted); margin-top: 4px; }
-
-.chat-input-area {
-  padding: 12px; border-top: 1px solid var(--white-border);
-  display: flex; gap: 8px;
-}
-.chat-input {
-  flex: 1; padding: 10px 14px;
-  background: var(--white-ghost); border: 1px solid var(--white-border);
-  border-radius: 10px; color: var(--white); font-family: var(--font-body); font-size: 13px;
-  outline: none;
-}
-.chat-input:focus { border-color: var(--purple); }
-.chat-send {
-  width: 38px; height: 38px;
-  background: linear-gradient(135deg, var(--purple), var(--violet));
-  border-radius: 10px; border: none; cursor: pointer; font-size: 16px;
-  display: flex; align-items: center; justify-content: center; color: #fff;
-}
-
-/* Participants list */
-.participant-list { display: flex; flex-direction: column; gap: 8px; }
-.participant-item {
-  display: flex; align-items: center; gap: 10px;
-  padding: 10px 12px; border-radius: 10px;
-  background: var(--white-ghost); border: 1px solid var(--white-border);
-}
-.pi-avatar {
-  width: 34px; height: 34px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center; font-size: 15px;
-  flex-shrink: 0;
-}
-.pi-info { flex: 1; }
-.pi-name { font-size: 13px; font-weight: 500; }
-.pi-role { font-size: 11px; color: var(--text-muted); }
-.pi-status { font-size: 14px; }
-
-/* Classroom bottom bar */
-.classroom-controls {
-  grid-column: 1;
-  background: var(--navy-mid);
-  border-top: 1px solid var(--white-border);
-  padding: 16px 24px;
-  display: flex; align-items: center; justify-content: space-between;
-}
-
-.ctrl-group { display: flex; gap: 10px; align-items: center; }
-
-.ctrl-btn {
-  width: 46px; height: 46px; border-radius: 12px;
-  background: var(--white-ghost); border: 1px solid var(--white-border);
-  color: var(--white); font-size: 18px; cursor: pointer; transition: all 0.2s;
-  display: flex; align-items: center; justify-content: center;
-  position: relative;
-}
-.ctrl-btn:hover { background: var(--purple-glow); border-color: var(--glass-border); }
-.ctrl-btn.active { background: var(--purple-glow); border-color: var(--purple); color: var(--purple-light); }
-.ctrl-btn.danger { background: rgba(239,68,68,0.12); border-color: rgba(239,68,68,0.3); color: #f87171; }
-.ctrl-btn.danger:hover { background: rgba(239,68,68,0.25); }
-
-.ctrl-label { font-size: 10px; font-weight: 500; color: var(--text-muted); margin-top: 4px; text-align: center; }
-
-.ctrl-with-label { display: flex; flex-direction: column; align-items: center; }
-
-.room-info { display: flex; flex-direction: column; align-items: center; gap: 2px; }
-.room-name { font-family: var(--font-head); font-size: 14px; font-weight: 700; }
-.room-time { font-size: 12px; color: var(--text-muted); }
-
-/* ══════════════════════════════════════
-   DASHBOARD / ESPACE ÉTUDIANT
-══════════════════════════════════════ */
-.dashboard-page {
-  min-height: 100vh;
-  padding-top: 70px;
-  display: grid;
-  grid-template-columns: 240px 1fr;
-}
-
-.dash-sidebar {
-  background: var(--navy-mid);
-  border-right: 1px solid var(--white-border);
-  padding: 24px 16px;
-  display: flex; flex-direction: column; gap: 4px;
-  height: calc(100vh - 70px);
-  position: sticky; top: 70px;
-  overflow-y: auto;
-}
-
-.dash-user {
-  display: flex; align-items: center; gap: 12px;
-  padding: 12px;
-  background: var(--white-ghost); border-radius: 12px;
-  margin-bottom: 20px;
-}
-.dash-user-avatar {
-  width: 38px; height: 38px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--purple), var(--violet));
-  display: flex; align-items: center; justify-content: center; font-size: 16px;
-}
-.dash-user-name { font-size: 13px; font-weight: 600; }
-.dash-user-role { font-size: 11px; color: var(--text-muted); }
-
-.dash-nav-label { font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); padding: 8px 12px 4px; margin-top: 8px; }
-
-.dash-nav-item {
-  display: flex; align-items: center; gap: 10px;
-  padding: 10px 12px; border-radius: 10px;
-  font-size: 14px; color: var(--white-dim);
-  cursor: pointer; transition: all 0.2s;
-}
-.dash-nav-item:hover { background: var(--white-ghost); color: var(--white); }
-.dash-nav-item.active { background: var(--purple-glow); border: 1px solid var(--glass-border); color: var(--purple-light); }
-.dash-nav-item span { font-size: 16px; }
-
-.dash-main { padding: 32px; overflow-y: auto; }
-.dash-header { margin-bottom: 32px; }
-.dash-header h1 { font-family: var(--font-head); font-size: 26px; font-weight: 800; margin-bottom: 4px; }
-.dash-header p { font-size: 14px; color: var(--text-muted); }
-
-.dash-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
-
-.dash-card {
-  padding: 20px 22px;
-  background: var(--glass);
-  border: 1px solid var(--white-border);
-  border-radius: var(--radius);
-  position: relative; overflow: hidden;
-}
-
-.dash-card-icon { font-size: 24px; margin-bottom: 10px; }
-.dash-card-val { font-family: var(--font-head); font-size: 32px; font-weight: 800; }
-.dash-card-label { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
-
-.dash-section-title { font-family: var(--font-head); font-size: 18px; font-weight: 700; margin-bottom: 16px; }
-
-.upcoming-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
-
-.upcoming-item {
-  display: flex; align-items: center; gap: 16px;
-  padding: 16px 20px;
-  background: var(--glass);
-  border: 1px solid var(--white-border);
-  border-radius: var(--radius);
-  transition: all 0.2s; cursor: pointer;
-}
-
-.upcoming-item:hover { border-color: var(--glass-border); }
-
-.upcoming-time {
-  text-align: center; min-width: 60px;
-}
-.up-hour { font-family: var(--font-head); font-size: 18px; font-weight: 700; }
-.up-date { font-size: 11px; color: var(--text-muted); }
-
-.up-divider { width: 1px; height: 40px; background: var(--white-border); }
-
-.up-info { flex: 1; }
-.up-title { font-weight: 600; font-size: 15px; margin-bottom: 4px; }
-.up-teacher { font-size: 13px; color: var(--text-muted); }
-
-.up-tag {
-  font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
-  padding: 4px 10px; border-radius: 99px;
-}
-.up-tag.live { background: rgba(74,222,128,0.12); color: #4ade80; border: 1px solid rgba(74,222,128,0.25); }
-.up-tag.soon { background: var(--purple-glow); color: var(--purple-light); border: 1px solid var(--glass-border); }
-
-/* ══════════════════════════════════════
-   ABOUT PAGE
-══════════════════════════════════════ */
-.about-page { padding-top: 70px; min-height: 100vh; position: relative; z-index: 1; }
-
-.about-hero { padding: 80px 0; text-align: center; }
-.about-hero h1 { font-family: var(--font-head); font-size: clamp(36px, 5vw, 60px); font-weight: 800; letter-spacing: -2px; margin-bottom: 20px; }
-.about-hero p { font-size: 18px; color: var(--white-dim); max-width: 600px; margin: 0 auto; line-height: 1.65; }
-
-.about-mission { padding: 60px 0; }
-.mission-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-.mission-text h2 { font-family: var(--font-head); font-size: 36px; font-weight: 800; letter-spacing: -1px; margin-bottom: 18px; }
-.mission-text p { font-size: 16px; color: var(--white-dim); line-height: 1.7; margin-bottom: 16px; }
-
-.mission-values { display: flex; flex-direction: column; gap: 14px; }
-.value-item { display: flex; gap: 14px; align-items: flex-start; }
-.value-icon { width: 38px; height: 38px; border-radius: 10px; background: var(--purple-glow); border: 1px solid var(--glass-border); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-.value-text h4 { font-weight: 600; font-size: 15px; margin-bottom: 4px; }
-.value-text p { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
-
-/* ══════════════════════════════════════
-   CONTACT PAGE
-══════════════════════════════════════ */
-.contact-page { padding: 130px 0 80px; min-height: 100vh; position: relative; z-index: 1; }
-.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
-
-.contact-info h1 { font-family: var(--font-head); font-size: 40px; font-weight: 800; letter-spacing: -1.5px; margin-bottom: 16px; }
-.contact-info p { font-size: 16px; color: var(--white-dim); line-height: 1.65; margin-bottom: 36px; }
-
-.contact-items { display: flex; flex-direction: column; gap: 18px; }
-.contact-item { display: flex; gap: 16px; align-items: flex-start; }
-.ci-icon { width: 44px; height: 44px; border-radius: 12px; background: var(--purple-glow); border: 1px solid var(--glass-border); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
-.ci-text h4 { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
-.ci-text p { font-size: 13px; color: var(--text-muted); }
-
-.contact-form-box {
-  background: var(--glass);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-lg);
-  padding: 36px;
-  box-shadow: var(--shadow), var(--glow);
-  position: relative;
-}
-.contact-form-box::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--purple), transparent); }
-
-/* ══════════════════════════════════════
-   ANIMATIONS
-══════════════════════════════════════ */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(0.9); }
-}
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-/* ══════════════════════════════════════
-   MOBILE MENU
-══════════════════════════════════════ */
-.mobile-menu {
-  display: none;
-  position: fixed; inset: 0; z-index: 200;
-  background: rgba(10,14,26,0.98);
-  backdrop-filter: blur(20px);
-  flex-direction: column; align-items: center; justify-content: center; gap: 32px;
-}
-.mobile-menu.open { display: flex; }
-.mobile-menu a { font-family: var(--font-head); font-size: 24px; font-weight: 700; color: var(--white); text-decoration: none; cursor: pointer; }
-.mobile-close { position: absolute; top: 20px; right: 20px; background: none; border: none; color: var(--white); font-size: 24px; cursor: pointer; }
-
-/* ══════════════════════════════════════
-   RESPONSIVE
-══════════════════════════════════════ */
-@media (max-width: 1024px) {
-  .hero-content { grid-template-columns: 1fr; gap: 48px; }
-  .hero-visual { max-width: 480px; margin: 0 auto; }
-  .features-grid { grid-template-columns: repeat(2, 1fr); }
-  .steps { grid-template-columns: repeat(2, 1fr); }
-  .steps .step:nth-child(2)::after { display: none; }
-  .instructors-grid { grid-template-columns: repeat(2, 1fr); }
-  .footer-grid { grid-template-columns: 1fr 1fr; }
-  .dashboard-page { grid-template-columns: 1fr; }
-  .dash-sidebar { display: none; }
-  .classroom-page { grid-template-columns: 1fr; }
-  .classroom-sidebar { height: 300px; }
-  .contact-grid, .mission-grid { grid-template-columns: 1fr; }
-}
-
-@media (max-width: 768px) {
-  nav { padding: 0 20px; }
-  .nav-links, .nav-actions { display: none; }
-  .hamburger { display: flex; }
-  .hero { padding: 100px 20px 60px; }
-  .container { padding: 0 20px; }
-  .features-grid { grid-template-columns: 1fr; }
-  .steps { grid-template-columns: 1fr; }
-  .step::after { display: none !important; }
-  .instructors-grid { grid-template-columns: 1fr 1fr; }
-  .courses-header { flex-direction: column; align-items: flex-start; gap: 16px; }
-  .hero-stats { gap: 24px; }
-  .cta-box { padding: 40px 24px; }
-  .footer-grid { grid-template-columns: 1fr; }
-  .dash-cards { grid-template-columns: 1fr 1fr; }
-}
-
-@media (max-width: 480px) {
-  .hero h1 { letter-spacing: -1px; }
-  .dash-cards { grid-template-columns: 1fr; }
-  .instructors-grid { grid-template-columns: 1fr; }
-  .float-badge { display: none; }
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JAM'BOUYO Academy — L'Excellence en IA</title>
+  <meta name="description" content="JAM'BOUYO Academy — plateforme e-learning premium. Formations IA, Prompt Engineering, Excel, Comptabilité, Business English et innovation digitale." />
+  <meta name="keywords" content="JAM'BOUYO, formation en ligne, intelligence artificielle, prompt engineering, excel, comptabilité, business english, e-learning, EdTech" />
+  <meta name="author" content="JAM'BOUYO Academy" />
+  <meta property="og:title" content="JAM'BOUYO Academy — Formation • Innovation • Excellence" />
+  <meta property="og:description" content="Plateforme e-learning premium nouvelle génération pour développer les compétences numériques et professionnelles." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://jam-bouyo.com" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="https://jam-bouyo.com" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
 
-<!-- BG Effects -->
-<div class="bg-mesh"></div>
-<div class="grid-bg"></div>
+  <div id="toast" class="toast hidden"></div>
 
-<!-- NAVIGATION -->
-<nav id="navbar">
-  <div class="nav-logo" onclick="showPage('home')">JAM<span>'</span>BOUYO</div>
-  <ul class="nav-links">
-    <li><a onclick="showPage('home')">Accueil</a></li>
-    <li><a onclick="showPage('courses')">Formations</a></li>
-    <li><a onclick="showPage('about')">À propos</a></li>
-    <li><a onclick="showPage('contact')">Contact</a></li>
-  </ul>
-  <div class="nav-actions">
-    <button class="btn btn-ghost" onclick="showPage('login')">Connexion</button>
-    <button class="btn btn-primary" onclick="showPage('login')">Commencer</button>
-  </div>
-  <div class="hamburger" onclick="toggleMenu()">
-    <span></span><span></span><span></span>
-  </div>
-</nav>
+  <nav class="top-nav" id="topNav">
+    <button class="nav-logo" onclick="scrollToSection('home')" aria-label="Accueil JAM'BOUYO Academy">
+      <span class="nav-logo-icon">JB</span>
+      <span class="nav-logo-text">JAM'BOUYO <small>Academy</small></span>
+    </button>
 
-<!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
-  <button class="mobile-close" onclick="toggleMenu()">✕</button>
-  <a onclick="showPage('home'); toggleMenu()">Accueil</a>
-  <a onclick="showPage('courses'); toggleMenu()">Formations</a>
-  <a onclick="showPage('about'); toggleMenu()">À propos</a>
-  <a onclick="showPage('contact'); toggleMenu()">Contact</a>
-  <button class="btn btn-primary btn-lg" onclick="showPage('login'); toggleMenu()">Commencer gratuitement</button>
-</div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home">Accueil</a></li>
+      <li><a href="#formations">Formations</a></li>
+      <li><a href="#admission">Admission</a></li>
+      <li><a href="#vision">Vision</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
 
-<!-- ════════════════════════════════════════
-     PAGE: HOME
-════════════════════════════════════════ -->
-<div id="page-home" class="page active">
+    <div class="nav-cta" id="navGuest">
+      <button class="btn-outline" onclick="openModal('loginModal')">Se connecter</button>
+      <button class="btn-gold" onclick="openModal('registerModal')">S'inscrire</button>
+    </div>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-content">
+    <div class="nav-cta hidden" id="navUser">
+      <span class="nav-welcome" id="navWelcome">Bienvenue</span>
+      <button class="btn-outline" onclick="openDashboard()">Mon espace</button>
+      <button class="btn-gold muted" onclick="logout()">Sortir</button>
+    </div>
+
+    <button class="hamburger" onclick="toggleMobileMenu()" aria-label="Menu mobile">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-bg">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="hero-grid"></div>
+      </div>
+
       <div class="hero-left">
-        <div class="hero-badge">
-          <div class="hero-badge-dot">🌍</div>
-          Intervenants experts du monde entier
+        <div class="hero-eyebrow">
+          <div class="eyebrow-line"></div>
+          <span class="eyebrow-text">JAM'BOUYO Academy</span>
         </div>
-        <h1>Apprenez avec les<br><em>meilleurs experts</em><br>en ligne</h1>
-        <p class="hero-sub">JAM'BOUYO réunit des formateurs d'exception du monde entier pour vous offrir une expérience d'apprentissage professionnelle, interactive et accessible à tous.</p>
-        <div class="hero-ctas">
-          <button class="btn btn-primary btn-lg" onclick="showPage('login')">🚀 Rejoindre gratuitement</button>
-          <button class="btn btn-ghost btn-lg" onclick="showPage('courses')">Explorer les formations</button>
+        <span class="hero-quote-mark">"</span>
+        <h1 class="hero-title">
+          L'excellence<br />
+          n'est pas<br />
+          une option,<br />
+          <span class="gold">c'est notre<br />engagement.</span>
+        </h1>
+        <p class="hero-subtitle">
+          L'intelligence artificielle ouvre des portes infinies, mais seule l'intelligence humaine peut leur donner une direction, une vision et une âme.
+        </p>
+        <div class="hero-author">
+          <div class="author-name">— Monsieur Mamadou NDIAYE</div>
+          <div class="author-title">Directeur de JAM'BOUYO Academy</div>
         </div>
-        <div class="hero-stats">
-          <div class="stat"><span class="stat-num">14+</span><span class="stat-label">Formations</span></div>
-          <div class="stat"><span class="stat-num">50+</span><span class="stat-label">Experts mondiaux</span></div>
-          <div class="stat"><span class="stat-num">100%</span><span class="stat-label">En direct</span></div>
+        <div class="hero-actions">
+          <button class="btn-play" onclick="scrollToSection('vision')">
+            <span class="play-icon">▶</span>
+            Découvrir notre vision
+          </button>
+          <button class="btn-cta-hero" onclick="openAdmission()"><span>Demander l'admission</span></button>
         </div>
       </div>
 
-      <div class="hero-visual">
-        <div class="float-badge top-left">🟢 <strong style="color:#4ade80">Cours en direct</strong></div>
-        <div class="hero-card">
-          <div class="hc-top">
-            <div class="hc-avatar">👨‍💻</div>
-            <div class="hc-info">
-              <div class="hc-name">Dr. Ibrahima Diallo</div>
-              <div class="hc-role">Intelligence Artificielle · Paris, France</div>
-            </div>
-            <div class="hc-live">● LIVE</div>
+      <div class="hero-right">
+        <div class="hero-portrait"></div>
+        <div class="portrait-img-wrap">
+          <img class="portrait-photo" src="https://i.ibb.co/d0mkWv7p/IMG-3795.jpg" alt="Monsieur Mamadou NDIAYE, Directeur de JAM'BOUYO Academy" />
+        </div>
+        <div class="stats-panel">
+          <div class="stat-card">
+            <div class="stat-icon">⟡</div>
+            <div class="stat-num" id="heroStudents">+0</div>
+            <div class="stat-label">Apprenants<br />inscrits</div>
           </div>
-          <div class="hc-screen">
-            <div class="hc-screen-content">
-              <div class="slide-preview">
-                <div class="slide-title">Introduction à l'IA — Module 3</div>
-                <div class="slide-lines">
-                  <div class="slide-line"></div>
-                  <div class="slide-line"></div>
-                  <div class="slide-line"></div>
-                </div>
-              </div>
-              <div class="participants-row">
-                <div class="p-avatar">A</div>
-                <div class="p-avatar">B</div>
-                <div class="p-avatar">C</div>
-                <span class="p-count">+23 participants</span>
-              </div>
-            </div>
+          <div class="stat-card">
+            <div class="stat-icon">◈</div>
+            <div class="stat-num">10+</div>
+            <div class="stat-label">Formations<br />professionnelles</div>
           </div>
-          <div class="hc-actions">
-            <button class="hc-btn">🎤</button>
-            <button class="hc-btn">📷</button>
-            <button class="hc-btn">💬</button>
-            <button class="hc-btn">🖥️</button>
-            <button class="hc-btn danger">📴</button>
+          <div class="stat-card">
+            <div class="stat-icon">◆</div>
+            <div class="stat-num">100%</div>
+            <div class="stat-label">Engagement<br />pour votre réussite</div>
           </div>
         </div>
-        <div class="float-badge bottom-right">📚 <strong>26 étudiants connectés</strong></div>
       </div>
+    </section>
+
+    <div class="features-bar">
+      <div class="feature-item"><div class="feature-icon-wrap">✦</div><div><div class="feature-title">Formations premium</div><div class="feature-desc">Programmes live, modernes et orientés résultats.</div></div></div>
+      <div class="feature-item"><div class="feature-icon-wrap">◈</div><div><div class="feature-title">Admission humaine</div><div class="feature-desc">Notre équipe accompagne chaque apprenant.</div></div></div>
+      <div class="feature-item"><div class="feature-icon-wrap">▶</div><div><div class="feature-title">Cours en direct</div><div class="feature-desc">Jitsi Meet, partage écran et chat intégrés.</div></div></div>
+      <div class="feature-item"><div class="feature-icon-wrap">⬡</div><div><div class="feature-title">Compétences d'avenir</div><div class="feature-desc">IA, business, finance, langue et productivité.</div></div></div>
     </div>
-  </section>
 
-  <!-- FEATURES -->
-  <section class="features">
-    <div class="container">
-      <div class="section-label">Fonctionnalités</div>
-      <h2 class="section-title">Tout ce qu'il vous faut<br>pour apprendre en ligne</h2>
-      <p class="section-sub">Une plateforme complète pensée pour l'excellence pédagogique et l'expérience utilisateur.</p>
+    <section class="section formations-section" id="formations">
+      <div class="section-eyebrow"><span>Nos programmes</span></div>
+      <h2 class="section-title reveal">Formations<br /><span class="gold">d'Excellence</span></h2>
+      <p class="section-intro reveal">Des formations payantes mais accessibles, avec admission personnalisée et accompagnement professionnel.</p>
+      <div class="formations-grid" id="formationsGrid"></div>
+    </section>
 
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon">🎥</div>
-          <h3>Visioconférence HD</h3>
-          <p>Cours en direct avec Jitsi Meet intégré — zéro installation, zéro abonnement, qualité professionnelle.</p>
+    <section class="admission-section" id="admission">
+      <div class="admission-copy reveal">
+        <div class="section-eyebrow"><span>Admission ouverte</span></div>
+        <h2 class="section-title">Rejoindre<br /><span class="gold">l'académie.</span></h2>
+        <p>Les modalités d'accès aux formations sont gérées directement avec le service admission. Aucun paiement automatique n'est intégré au site.</p>
+        <div class="admission-badges">
+          <span>Admission ouverte</span>
+          <span>Places limitées</span>
+          <span>Formation premium accessible</span>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon">🖥️</div>
-          <h3>Partage d'écran</h3>
-          <p>Les formateurs partagent leur écran en temps réel pour des démonstrations claires et impactantes.</p>
+        <a class="btn-whatsapp" href="https://wa.me/33784650529?text=Bonjour%20JAM'BOUYO%20Academy%2C%20je%20souhaite%20des%20informations%20sur%20l'admission." target="_blank" rel="noopener">WhatsApp Admission</a>
+      </div>
+      <div class="admission-form-card reveal">
+        <h3>Demande d'admission</h3>
+        <p>Remplissez votre demande. Notre service admission vous contactera rapidement.</p>
+        <form id="admissionForm" class="form-stack">
+          <div class="form-row">
+            <label>Prénom<input id="admPrenom" type="text" required placeholder="Votre prénom" /></label>
+            <label>Nom<input id="admNom" type="text" required placeholder="Votre nom" /></label>
+          </div>
+          <label>Email<input id="admEmail" type="email" required placeholder="votre@email.com" /></label>
+          <label>Téléphone<input id="admTel" type="tel" required placeholder="+33 7 84 65 05 29" /></label>
+          <label>Formation choisie<select id="admFormation" required></select></label>
+          <label>Message optionnel<textarea id="admMessage" rows="3" placeholder="Votre objectif, votre disponibilité..."></textarea></label>
+          <button class="btn-gold wide" id="admSubmitBtn" type="submit">Envoyer ma demande</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="testimonial-section" id="vision">
+      <div class="testimonial-grid">
+        <div class="reveal">
+          <div class="testimonial-big-quote">"</div>
+          <p class="testimonial-text">JAM'BOUYO Academy place l'humain au cœur de l'intelligence artificielle : apprendre, créer, innover et transformer son avenir avec méthode.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">JB</div>
+            <div class="author-info"><strong>JAM'BOUYO Academy</strong><span>Formation • Innovation • Excellence</span></div>
+          </div>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon">📊</div>
-          <h3>Partage de diapositives</h3>
-          <p>Présentations PDF et PowerPoint diffusées en direct pendant les cours pour suivre facilement.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">💬</div>
-          <h3>Chat en temps réel</h3>
-          <p>Posez vos questions, interagissez avec le formateur et les autres participants instantanément.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">🌍</div>
-          <h3>Experts internationaux</h3>
-          <p>Des intervenants spécialisés issus d'Europe, d'Afrique, d'Amérique et d'Asie pour une richesse culturelle unique.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">📱</div>
-          <h3>100% Responsive</h3>
-          <p>Accédez à vos cours depuis n'importe quel appareil : ordinateur, tablette ou smartphone.</p>
+        <div class="testimonial-stats reveal">
+          <div class="t-stat"><div class="t-stat-num" id="statUsers">0</div><div class="t-stat-label">Comptes créés</div></div>
+          <div class="t-stat"><div class="t-stat-num" id="statAdmissions">0</div><div class="t-stat-label">Demandes d'admission</div></div>
+          <div class="t-stat"><div class="t-stat-num">10+</div><div class="t-stat-label">Programmes en ligne</div></div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- COURSES PREVIEW -->
-  <section class="courses-section">
-    <div class="container">
-      <div class="courses-header">
-        <div>
-          <div class="section-label">Catalogue</div>
-          <h2 class="section-title">Nos formations phares</h2>
-        </div>
-        <button class="btn btn-ghost" onclick="showPage('courses')">Voir tout →</button>
+    <section class="cta-section">
+      <div class="cta-label">Rejoignez l'élite digitale</div>
+      <h2 class="cta-title reveal">Votre avenir<br /><span class="gold">commence ici.</span></h2>
+      <p class="cta-sub reveal">Créez votre compte, choisissez une formation et envoyez votre demande d'admission. Notre équipe vous accompagne ensuite.</p>
+      <div class="cta-buttons reveal">
+        <button class="btn-primary" onclick="openModal('registerModal')">Créer un compte</button>
+        <button class="btn-secondary" onclick="scrollToSection('formations')">Voir les formations</button>
       </div>
-      <div class="courses-grid" id="featured-courses"></div>
-    </div>
-  </section>
+    </section>
+  </main>
 
-  <!-- HOW IT WORKS -->
-  <section class="how-section">
-    <div class="container">
-      <div class="section-label">Comment ça marche</div>
-      <h2 class="section-title">Rejoindre un cours<br>en 4 étapes</h2>
-      <div class="steps">
-        <div class="step">
-          <div class="step-num">1</div>
-          <h3>Créez votre compte</h3>
-          <p>Inscription gratuite et instantanée. Pas de carte bancaire requise.</p>
-        </div>
-        <div class="step">
-          <div class="step-num">2</div>
-          <h3>Choisissez votre formation</h3>
-          <p>Parcourez notre catalogue et trouvez le cours qui correspond à vos objectifs.</p>
-        </div>
-        <div class="step">
-          <div class="step-num">3</div>
-          <h3>Rejoignez la salle</h3>
-          <p>D'un clic, entrez dans la salle de cours virtuelle. La visio démarre automatiquement.</p>
-        </div>
-        <div class="step">
-          <div class="step-num">4</div>
-          <h3>Apprenez & interagissez</h3>
-          <p>Posez vos questions en direct, partagez vos idées et progressez avec vos pairs.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- INSTRUCTORS -->
-  <section class="instructors">
-    <div class="container">
-      <div class="section-label">Intervenants</div>
-      <h2 class="section-title">Experts du monde entier</h2>
-      <p class="section-sub">Des professionnels reconnus dans leurs domaines, issus des quatre coins du globe.</p>
-      <div class="instructors-grid">
-        <div class="instructor-card">
-          <div class="instructor-avatar" style="background: linear-gradient(135deg, #6c4bff22, #9b3dff22);">
-            👨‍💻
-            <div class="instructor-flag">🇫🇷</div>
-          </div>
-          <div class="instructor-name">Dr. A. Kourouma</div>
-          <div class="instructor-role">Expert IA & Machine Learning</div>
-          <div class="instructor-tags">
-            <span class="itag">Intelligence Artificielle</span>
-            <span class="itag">Art du Prompt</span>
-          </div>
-        </div>
-        <div class="instructor-card">
-          <div class="instructor-avatar" style="background: linear-gradient(135deg, #4fd1c522, #38bdf822);">
-            👩‍🏫
-            <div class="instructor-flag">🇬🇧</div>
-          </div>
-          <div class="instructor-name">Ms. Sarah Williams</div>
-          <div class="instructor-role">Business English Coach</div>
-          <div class="instructor-tags">
-            <span class="itag">Business English</span>
-            <span class="itag">Communication</span>
-          </div>
-        </div>
-        <div class="instructor-card">
-          <div class="instructor-avatar" style="background: linear-gradient(135deg, #f472b622, #fb923c22);">
-            👨‍💼
-            <div class="instructor-flag">🇪🇸</div>
-          </div>
-          <div class="instructor-name">Sr. Carlos Méndez</div>
-          <div class="instructor-role">Formateur Espagnol & Business</div>
-          <div class="instructor-tags">
-            <span class="itag">Espagnol</span>
-            <span class="itag">RSE</span>
-          </div>
-        </div>
-        <div class="instructor-card">
-          <div class="instructor-avatar" style="background: linear-gradient(135deg, #4ade8022, #22d3ee22);">
-            👩‍💻
-            <div class="instructor-flag">🇨🇮</div>
-          </div>
-          <div class="instructor-name">Mme. F. Traoré</div>
-          <div class="instructor-role">Experte Comptabilité & Finance</div>
-          <div class="instructor-tags">
-            <span class="itag">Comptabilité</span>
-            <span class="itag">Excel</span>
-            <span class="itag">VBA</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="cta-section">
-    <div class="container">
-      <div class="cta-box">
-        <h2>Prêt à transformer<br>votre carrière ?</h2>
-        <p>Rejoignez la communauté JAM'BOUYO et accédez à des formations d'excellence.</p>
-        <div class="cta-btns">
-          <button class="btn btn-accent btn-lg" onclick="showPage('login')">🎓 S'inscrire gratuitement</button>
-          <button class="btn btn-ghost btn-lg" onclick="showPage('courses')">Voir les formations</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="nav-logo" style="font-size:20px">JAM'BOUYO</div>
-          <p>Plateforme de formation professionnelle en ligne. Des experts du monde entier à portée de clic.</p>
-        </div>
-        <div class="footer-col">
-          <h4>Plateforme</h4>
-          <ul>
-            <li onclick="showPage('courses')">Formations</li>
-            <li onclick="showPage('login')">Espace Étudiant</li>
-            <li onclick="showPage('login')">Espace Formateur</li>
-            <li onclick="showPage('classroom')">Rejoindre un cours</li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>JAM'BOUYO</h4>
-          <ul>
-            <li onclick="showPage('about')">À propos</li>
-            <li onclick="showPage('contact')">Contact</li>
-            <li>Nos formateurs</li>
-            <li>Témoignages</li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>Légal</h4>
-          <ul>
-            <li>Mentions légales</li>
-            <li>CGU</li>
-            <li>Politique de confidentialité</li>
-            <li>Cookies</li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>© 2025 JAM'BOUYO — Tous droits réservés</p>
-        <div class="footer-socials">
-          <div class="social-btn">📘</div>
-          <div class="social-btn">🐦</div>
-          <div class="social-btn">💼</div>
-          <div class="social-btn">📸</div>
-        </div>
-      </div>
+  <footer id="contact">
+    <div class="footer-logo">JAM'<span>BOUYO</span> ACADEMY</div>
+    <div class="footer-copy">© 2026 JAM'BOUYO Academy — Tous droits réservés<br /><a href="mailto:contact@jam-bouyo.com">contact@jam-bouyo.com</a></div>
+    <div class="footer-links">
+      <a href="#formations">Formations</a>
+      <a href="#admission">Admission</a>
+      <a href="https://wa.me/33784650529" target="_blank" rel="noopener">WhatsApp</a>
     </div>
   </footer>
-</div>
 
-<!-- ════════════════════════════════════════
-     PAGE: COURSES
-════════════════════════════════════════ -->
-<div id="page-courses" class="page">
-  <div style="padding-top:70px; min-height:100vh; position:relative; z-index:1;">
-    <div style="background: linear-gradient(180deg, var(--navy-mid), transparent); padding: 60px 0 40px;">
-      <div class="container">
-        <div class="section-label">Catalogue complet</div>
-        <h1 class="section-title">Toutes nos formations</h1>
-        <p class="section-sub">14 formations professionnelles animées par des experts internationaux, 100% en direct.</p>
-      </div>
-    </div>
-    <div class="container" style="padding-bottom: 80px;">
-      <div class="courses-grid" id="all-courses" style="margin-top:40px;"></div>
-    </div>
-  </div>
-</div>
+  <a class="wa-float" href="https://wa.me/33784650529?text=Bonjour%20JAM'BOUYO%20Academy%2C%20je%20souhaite%20des%20informations%20sur%20vos%20formations." target="_blank" rel="noopener" aria-label="Admission & Informations WhatsApp">
+    <span class="wa-icon">☘</span>
+    <span class="wa-text"><strong>Admission & Informations</strong><small>Contactez-nous</small></span>
+  </a>
 
-<!-- ════════════════════════════════════════
-     PAGE: LOGIN
-════════════════════════════════════════ -->
-<div id="page-login" class="page">
-  <div class="auth-page">
-    <div class="auth-box">
-      <div class="nav-logo" style="margin-bottom:24px; font-size:20px;">JAM'BOUYO</div>
-      <h1 class="auth-title">Bienvenue 👋</h1>
-      <p class="auth-sub">Connectez-vous ou créez votre compte pour accéder aux formations.</p>
-
-      <div class="auth-tabs">
-        <div class="auth-tab active" onclick="switchTab('login')">Connexion</div>
-        <div class="auth-tab" onclick="switchTab('register')">Inscription</div>
-      </div>
-
-      <div id="form-login">
-        <div class="form-group">
-          <label class="form-label">Adresse email</label>
-          <input class="form-input" type="email" placeholder="vous@exemple.com">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Mot de passe</label>
-          <input class="form-input" type="password" placeholder="••••••••">
-        </div>
-        <div class="form-role">
-          <div class="role-btn active" onclick="selectRole(this, 'étudiant')">🎓 Étudiant</div>
-          <div class="role-btn" onclick="selectRole(this, 'formateur')">👨‍🏫 Formateur</div>
-        </div>
-        <button class="btn btn-primary form-submit" onclick="doLogin()">Se connecter →</button>
-      </div>
-
-      <div id="form-register" style="display:none">
-        <div class="form-group">
-          <label class="form-label">Prénom & Nom</label>
-          <input class="form-input" type="text" placeholder="Votre nom complet">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Adresse email</label>
-          <input class="form-input" type="email" placeholder="vous@exemple.com">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Mot de passe</label>
-          <input class="form-input" type="password" placeholder="Minimum 8 caractères">
-        </div>
-        <div class="form-role">
-          <div class="role-btn active" onclick="selectRole(this, 'étudiant')">🎓 Étudiant</div>
-          <div class="role-btn" onclick="selectRole(this, 'formateur')">👨‍🏫 Formateur</div>
-        </div>
-        <button class="btn btn-primary form-submit" onclick="doLogin()">Créer mon compte →</button>
-      </div>
-
-      <p style="text-align:center; font-size:13px; color:var(--text-muted); margin-top:20px;">
-        En continuant, vous acceptez nos <span style="color:var(--purple-light);cursor:pointer">CGU</span> et notre <span style="color:var(--purple-light);cursor:pointer">politique de confidentialité</span>.
-      </p>
+  <div class="modal-overlay" id="loginModal" onclick="closeModalOutside(event,'loginModal')">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeModal('loginModal')">×</button>
+      <h2>Connexion</h2>
+      <p>Accédez à votre espace JAM'BOUYO.</p>
+      <form id="loginForm" class="form-stack">
+        <label>Email<input id="loginEmail" type="email" required placeholder="votre@email.com" /></label>
+        <label>Mot de passe<input id="loginPassword" type="password" required placeholder="••••••••" /></label>
+        <button class="btn-gold wide" id="loginBtn" type="submit">Se connecter</button>
+      </form>
+      <button class="link-btn" onclick="switchModal('loginModal','registerModal')">Créer un compte</button>
+      <button class="link-btn" onclick="resetPasswordPrompt()">Mot de passe oublié ?</button>
     </div>
   </div>
-</div>
 
-<!-- ════════════════════════════════════════
-     PAGE: STUDENT DASHBOARD
-════════════════════════════════════════ -->
-<div id="page-student" class="page">
-  <div class="dashboard-page">
-    <!-- Sidebar -->
-    <div class="dash-sidebar">
-      <div class="dash-user">
-        <div class="dash-user-avatar">🎓</div>
-        <div>
-          <div class="dash-user-name">Aminata Diallo</div>
-          <div class="dash-user-role">Étudiante</div>
+  <div class="modal-overlay" id="registerModal" onclick="closeModalOutside(event,'registerModal')">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeModal('registerModal')">×</button>
+      <h2>Créer un compte</h2>
+      <p>Rejoignez JAM'BOUYO Academy.</p>
+      <form id="registerForm" class="form-stack">
+        <div class="form-row">
+          <label>Prénom<input id="regPrenom" type="text" required placeholder="Prénom" /></label>
+          <label>Nom<input id="regNom" type="text" required placeholder="Nom" /></label>
         </div>
-      </div>
-
-      <div class="dash-nav-label">Navigation</div>
-      <div class="dash-nav-item active"><span>🏠</span> Tableau de bord</div>
-      <div class="dash-nav-item" onclick="showPage('courses')"><span>📚</span> Mes cours</div>
-      <div class="dash-nav-item" onclick="showPage('classroom')"><span>🎥</span> Rejoindre un cours</div>
-      <div class="dash-nav-item"><span>📅</span> Planning</div>
-      <div class="dash-nav-item"><span>📜</span> Certificats</div>
-
-      <div class="dash-nav-label" style="margin-top: auto;">Compte</div>
-      <div class="dash-nav-item"><span>⚙️</span> Paramètres</div>
-      <div class="dash-nav-item" onclick="showPage('home')"><span>🚪</span> Déconnexion</div>
+        <label>Email<input id="regEmail" type="email" required placeholder="votre@email.com" /></label>
+        <label>Rôle<select id="regRole"><option value="etudiant">Étudiant</option><option value="formateur">Formateur</option></select></label>
+        <label>Mot de passe<input id="regPassword" type="password" minlength="8" required placeholder="Minimum 8 caractères" /></label>
+        <button class="btn-gold wide" id="registerBtn" type="submit">Créer mon compte</button>
+      </form>
+      <button class="link-btn" onclick="switchModal('registerModal','loginModal')">J'ai déjà un compte</button>
     </div>
+  </div>
 
-    <!-- Main -->
+  <div class="modal-overlay" id="liveModal" onclick="closeModalOutside(event,'liveModal')">
+    <div class="modal-card live-card-modal">
+      <button class="modal-close" onclick="closeLiveModal()">×</button>
+      <h2 id="liveModalTitle">Salle de cours</h2>
+      <div id="jitsiContainer" class="jitsi-container"></div>
+    </div>
+  </div>
+
+  <section class="dashboard hidden" id="studentDashboard">
+    <aside class="dash-side">
+      <div class="dash-brand">JB</div>
+      <button class="dash-link active" onclick="showStudentTab('studentHome', this)">Accueil</button>
+      <button class="dash-link" onclick="showStudentTab('studentAdmissions', this)">Admissions</button>
+      <button class="dash-link" onclick="showStudentTab('studentCourses', this)">Cours</button>
+      <button class="dash-link" onclick="showStudentTab('studentProfile', this)">Profil</button>
+      <button class="dash-link danger" onclick="closeDashboard()">Fermer</button>
+    </aside>
     <div class="dash-main">
-      <div class="dash-header">
-        <h1>Bonjour, Aminata 👋</h1>
-        <p>Voici votre espace d'apprentissage — continuez sur votre lancée !</p>
-      </div>
-
-      <div class="dash-cards">
-        <div class="dash-card">
-          <div class="dash-card-icon">📚</div>
-          <div class="dash-card-val">3</div>
-          <div class="dash-card-label">Cours inscrits</div>
-        </div>
-        <div class="dash-card">
-          <div class="dash-card-icon">⏱️</div>
-          <div class="dash-card-val">12h</div>
-          <div class="dash-card-label">Heures de formation</div>
-        </div>
-        <div class="dash-card">
-          <div class="dash-card-icon">🏆</div>
-          <div class="dash-card-val">1</div>
-          <div class="dash-card-label">Certificat obtenu</div>
-        </div>
-      </div>
-
-      <div class="dash-section-title">Prochains cours</div>
-      <div class="upcoming-list">
-        <div class="upcoming-item" onclick="showPage('classroom')">
-          <div class="upcoming-time">
-            <div class="up-hour">14h00</div>
-            <div class="up-date">Aujourd'hui</div>
-          </div>
-          <div class="up-divider"></div>
-          <div class="up-info">
-            <div class="up-title">Introduction à l'Intelligence Artificielle</div>
-            <div class="up-teacher">👨‍💻 Dr. A. Kourouma · Module 3 — Les réseaux de neurones</div>
-          </div>
-          <div class="up-tag live">● EN DIRECT</div>
-        </div>
-        <div class="upcoming-item">
-          <div class="upcoming-time">
-            <div class="up-hour">16h30</div>
-            <div class="up-date">Aujourd'hui</div>
-          </div>
-          <div class="up-divider"></div>
-          <div class="up-info">
-            <div class="up-title">Business English — Communication écrite</div>
-            <div class="up-teacher">👩‍🏫 Ms. Sarah Williams · Session 5</div>
-          </div>
-          <div class="up-tag soon">Dans 2h30</div>
-        </div>
-        <div class="upcoming-item">
-          <div class="upcoming-time">
-            <div class="up-hour">10h00</div>
-            <div class="up-date">Demain</div>
-          </div>
-          <div class="up-divider"></div>
-          <div class="up-info">
-            <div class="up-title">Excel — Tableaux croisés dynamiques</div>
-            <div class="up-teacher">👩‍💻 Mme. F. Traoré · Module 4</div>
-          </div>
-          <div class="up-tag soon">Demain</div>
-        </div>
-      </div>
-
-      <div class="dash-section-title">Accès rapide</div>
-      <div style="display:flex; gap:12px; flex-wrap:wrap;">
-        <button class="btn btn-primary" onclick="showPage('classroom')">🎥 Rejoindre le cours en direct</button>
-        <button class="btn btn-ghost" onclick="showPage('courses')">📚 Explorer d'autres formations</button>
-        <button class="btn btn-ghost">📅 Voir mon planning complet</button>
-      </div>
+      <header class="dash-head"><h2 id="studentWelcome">Bienvenue 👋</h2><button class="btn-outline" onclick="logout()">Déconnexion</button></header>
+      <div class="dash-tab" id="studentHome"><div class="dash-grid" id="studentStats"></div></div>
+      <div class="dash-tab hidden" id="studentAdmissions"><h3>Mes demandes d'admission</h3><div id="myAdmissionsList" class="data-list"></div></div>
+      <div class="dash-tab hidden" id="studentCourses"><h3>Cours disponibles</h3><div id="studentCoursesGrid" class="dash-courses-grid"></div></div>
+      <div class="dash-tab hidden" id="studentProfile"><h3>Mon profil</h3><div class="profile-card" id="studentProfileCard"></div></div>
     </div>
-  </div>
-</div>
+  </section>
 
-<!-- ════════════════════════════════════════
-     PAGE: CLASSROOM
-════════════════════════════════════════ -->
-<div id="page-classroom" class="page">
-  <div class="classroom-page">
-    <!-- Main video area -->
-    <div class="classroom-main">
-      <div id="jitsi-container">
-        <div class="jitsi-placeholder">
-          <div class="jitsi-icon">🎥</div>
-          <h2>Salle de cours virtuelle</h2>
-          <p>Cliquez sur "Démarrer le cours" pour lancer la visioconférence Jitsi Meet. Partagez le lien de la salle à vos étudiants pour qu'ils vous rejoignent.</p>
-          <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:8px;">
-            <button class="btn btn-primary btn-lg" onclick="launchJitsi()">🚀 Démarrer le cours</button>
-            <button class="btn btn-ghost btn-lg" onclick="joinJitsi()">🔗 Rejoindre avec un code</button>
-          </div>
-          <div id="room-code-form" style="display:none; margin-top:20px; background:var(--glass); border:1px solid var(--glass-border); border-radius:16px; padding:24px; width:100%; max-width:380px;">
-            <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">Entrez le code ou nom de la salle :</p>
-            <input id="room-code-input" class="form-input" placeholder="ex: jambouyo-ia-module3" style="margin-bottom:12px;">
-            <button class="btn btn-primary" style="width:100%" onclick="enterRoom()">Rejoindre →</button>
-          </div>
-        </div>
-      </div>
+  <section class="dashboard hidden" id="adminDashboard">
+    <aside class="dash-side admin-side">
+      <div class="dash-brand">ADMIN</div>
+      <button class="dash-link active" onclick="showAdminTab('adminHome', this)">Statistiques</button>
+      <button class="dash-link" onclick="showAdminTab('adminAdmissions', this)">Admissions</button>
+      <button class="dash-link" onclick="showAdminTab('adminStudents', this)">Étudiants</button>
+      <button class="dash-link" onclick="showAdminTab('adminCourses', this)">Cours</button>
+      <button class="dash-link danger" onclick="closeDashboard()">Fermer</button>
+    </aside>
+    <div class="dash-main">
+      <header class="dash-head"><h2 id="adminWelcome">Dashboard Admin</h2><button class="btn-outline" onclick="logout()">Déconnexion</button></header>
+      <div class="dash-tab" id="adminHome"><div class="dash-grid" id="adminStats"></div></div>
+      <div class="dash-tab hidden" id="adminAdmissions"><h3>Gestion des admissions</h3><div id="adminAdmissionsList" class="data-list"></div></div>
+      <div class="dash-tab hidden" id="adminStudents"><h3>Gestion étudiants</h3><input class="search-input" id="studentSearch" placeholder="Rechercher un étudiant..." oninput="renderAdminStudents()" /><div id="adminStudentsList" class="data-list"></div></div>
+      <div class="dash-tab hidden" id="adminCourses"><h3>Gestion des cours</h3><div id="adminCoursesGrid" class="dash-courses-grid"></div></div>
     </div>
+  </section>
 
-    <!-- Sidebar -->
-    <div class="classroom-sidebar">
-      <div class="sidebar-tabs">
-        <div class="sidebar-tab active" onclick="switchSidebarTab('chat', this)">💬 Chat</div>
-        <div class="sidebar-tab" onclick="switchSidebarTab('participants', this)">👥 Participants</div>
-        <div class="sidebar-tab" onclick="switchSidebarTab('slides', this)">📊 Slides</div>
-      </div>
-
-      <div class="sidebar-content" id="tab-chat">
-        <div class="chat-messages">
-          <div class="chat-msg">
-            <div class="cm-avatar" style="background:linear-gradient(135deg,#6c4bff,#9b3dff)">D</div>
-            <div class="cm-bubble">
-              <div class="cm-name">Dr. Kourouma</div>
-              <div class="cm-text">Bonjour à tous ! Nous allons commencer dans quelques instants. Préparez-vous 🎓</div>
-              <div class="cm-time">14:02</div>
-            </div>
-          </div>
-          <div class="chat-msg">
-            <div class="cm-avatar" style="background:linear-gradient(135deg,#4fd1c5,#38bdf8)">A</div>
-            <div class="cm-bubble">
-              <div class="cm-name">Aminata</div>
-              <div class="cm-text">Prête ! Merci pour ce module 🙌</div>
-              <div class="cm-time">14:03</div>
-            </div>
-          </div>
-          <div class="chat-msg">
-            <div class="cm-avatar" style="background:linear-gradient(135deg,#f472b6,#fb923c)">K</div>
-            <div class="cm-bubble">
-              <div class="cm-name">Kofi</div>
-              <div class="cm-text">Question : peut-on revoir les diapositives après le cours ?</div>
-              <div class="cm-time">14:04</div>
-            </div>
-          </div>
-          <div class="chat-msg">
-            <div class="cm-avatar" style="background:linear-gradient(135deg,#6c4bff,#9b3dff)">D</div>
-            <div class="cm-bubble">
-              <div class="cm-name">Dr. Kourouma</div>
-              <div class="cm-text">Oui Kofi ! Les slides seront disponibles dans votre espace étudiant après la session ✅</div>
-              <div class="cm-time">14:05</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="sidebar-content" id="tab-participants" style="display:none">
-        <div class="participant-list">
-          <div class="participant-item">
-            <div class="pi-avatar" style="background:linear-gradient(135deg,#6c4bff,#9b3dff)">👨‍💻</div>
-            <div class="pi-info">
-              <div class="pi-name">Dr. A. Kourouma</div>
-              <div class="pi-role">🎓 Formateur</div>
-            </div>
-            <div class="pi-status">🎤</div>
-          </div>
-          <div class="participant-item">
-            <div class="pi-avatar" style="background:linear-gradient(135deg,#4fd1c5,#38bdf8)">👩</div>
-            <div class="pi-info"><div class="pi-name">Aminata Diallo</div><div class="pi-role">Étudiante</div></div>
-            <div class="pi-status">🔇</div>
-          </div>
-          <div class="participant-item">
-            <div class="pi-avatar" style="background:linear-gradient(135deg,#f472b6,#fb923c)">👨</div>
-            <div class="pi-info"><div class="pi-name">Kofi Mensah</div><div class="pi-role">Étudiant</div></div>
-            <div class="pi-status">🔇</div>
-          </div>
-          <div class="participant-item">
-            <div class="pi-avatar" style="background:linear-gradient(135deg,#4ade80,#22d3ee)">👩</div>
-            <div class="pi-info"><div class="pi-name">Fatou Sarr</div><div class="pi-role">Étudiante</div></div>
-            <div class="pi-status">🎤</div>
-          </div>
-          <div style="text-align:center; padding:16px; color:var(--text-muted); font-size:13px;">+22 autres participants</div>
-        </div>
-      </div>
-
-      <div class="sidebar-content" id="tab-slides" style="display:none">
-        <div style="display:flex; flex-direction:column; gap:12px;">
-          <p style="font-size:13px; color:var(--text-muted); margin-bottom:4px;">Slides du cours en cours :</p>
-          <div style="background:var(--white-ghost); border:1px solid var(--white-border); border-radius:12px; padding:16px; aspect-ratio:16/9; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:8px;">
-            <div style="font-size:32px;">📊</div>
-            <div style="font-size:13px; font-weight:600;">Diapositive 3 / 12</div>
-            <div style="font-size:11px; color:var(--text-muted);">Les réseaux de neurones artificiels</div>
-          </div>
-          <div style="display:flex; gap:8px;">
-            <button class="btn btn-ghost" style="flex:1; font-size:13px;">← Préc.</button>
-            <button class="btn btn-ghost" style="flex:1; font-size:13px;">Suiv. →</button>
-          </div>
-          <div style="border-top:1px solid var(--white-border); padding-top:12px; margin-top:4px;">
-            <p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">Partager des slides :</p>
-            <input type="file" id="slide-upload" accept=".pdf,.ppt,.pptx" style="display:none">
-            <button class="btn btn-ghost" style="width:100%; font-size:13px;" onclick="document.getElementById('slide-upload').click()">📁 Importer PDF / PPT</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="chat-input-area">
-        <input class="chat-input" id="chatInput" placeholder="Tapez un message..." onkeydown="sendMsg(event)">
-        <button class="chat-send" onclick="sendChatMsg()">➤</button>
-      </div>
-    </div>
-
-    <!-- Controls -->
-    <div class="classroom-controls">
-      <div class="ctrl-group">
-        <div class="ctrl-with-label">
-          <button class="ctrl-btn active" id="btn-mic" onclick="toggleCtrl(this)">🎤</button>
-          <div class="ctrl-label">Micro</div>
-        </div>
-        <div class="ctrl-with-label">
-          <button class="ctrl-btn active" id="btn-cam" onclick="toggleCtrl(this)">📷</button>
-          <div class="ctrl-label">Caméra</div>
-        </div>
-        <div class="ctrl-with-label">
-          <button class="ctrl-btn" id="btn-screen" onclick="toggleCtrl(this)">🖥️</button>
-          <div class="ctrl-label">Écran</div>
-        </div>
-        <div class="ctrl-with-label">
-          <button class="ctrl-btn" id="btn-hand" onclick="toggleCtrl(this)">✋</button>
-          <div class="ctrl-label">Main levée</div>
-        </div>
-      </div>
-
-      <div class="room-info">
-        <div class="room-name">IA — Module 3</div>
-        <div class="room-time" id="room-timer">00:00:00</div>
-      </div>
-
-      <div class="ctrl-group">
-        <div class="ctrl-with-label">
-          <button class="ctrl-btn" onclick="showPage('student')">👤</button>
-          <div class="ctrl-label">Dashboard</div>
-        </div>
-        <div class="ctrl-with-label">
-          <button class="ctrl-btn danger" onclick="leaveRoom()">📴</button>
-          <div class="ctrl-label">Quitter</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ════════════════════════════════════════
-     PAGE: ABOUT
-════════════════════════════════════════ -->
-<div id="page-about" class="page">
-  <div class="about-page">
-    <div class="container">
-      <div class="about-hero">
-        <div class="section-label">Notre histoire</div>
-        <h1>JAM'BOUYO,<br><em style="font-style:normal; background:linear-gradient(135deg,var(--purple-light),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">l'excellence accessible</em></h1>
-        <p>Nous croyons que chaque individu mérite d'accéder aux meilleures formations professionnelles, peu importe où il se trouve dans le monde.</p>
-      </div>
-
-      <div class="about-mission">
-        <div class="mission-grid">
-          <div class="mission-text">
-            <h2>Notre mission</h2>
-            <p>JAM'BOUYO est née d'une conviction simple : le savoir ne doit pas avoir de frontières. En réunissant des experts du monde entier sur une plateforme moderne, nous rendons l'excellence accessible à tous.</p>
-            <p>Que vous soyez en Afrique, en Europe, en Amérique ou en Asie, nos cours en direct vous connectent aux meilleurs formateurs dans leur domaine, sans compromis sur la qualité.</p>
-            <div style="margin-top:28px;">
-              <button class="btn btn-primary btn-lg" onclick="showPage('login')">Rejoindre la communauté</button>
-            </div>
-          </div>
-          <div class="mission-values">
-            <div class="value-item">
-              <div class="value-icon">🌍</div>
-              <div class="value-text">
-                <h4>Accessibilité mondiale</h4>
-                <p>Des cours accessibles depuis n'importe quel pays, sur n'importe quel appareil.</p>
-              </div>
-            </div>
-            <div class="value-item">
-              <div class="value-icon">🏆</div>
-              <div class="value-text">
-                <h4>Excellence pédagogique</h4>
-                <p>Des formateurs rigoureusement sélectionnés pour leur expertise et leurs qualités humaines.</p>
-              </div>
-            </div>
-            <div class="value-item">
-              <div class="value-icon">🤝</div>
-              <div class="value-text">
-                <h4>Communauté bienveillante</h4>
-                <p>Un environnement d'entraide et de partage entre étudiants du monde entier.</p>
-              </div>
-            </div>
-            <div class="value-item">
-              <div class="value-icon">💡</div>
-              <div class="value-text">
-                <h4>Innovation continue</h4>
-                <p>Une plateforme qui évolue constamment pour offrir la meilleure expérience possible.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ════════════════════════════════════════
-     PAGE: CONTACT
-════════════════════════════════════════ -->
-<div id="page-contact" class="page">
-  <div class="contact-page">
-    <div class="container">
-      <div class="contact-grid">
-        <div class="contact-info">
-          <div class="section-label">Contactez-nous</div>
-          <h1>Nous sommes là<br>pour vous</h1>
-          <p>Une question sur nos formations ? Vous souhaitez proposer votre expertise ? Notre équipe vous répond rapidement.</p>
-
-          <div class="contact-items">
-            <div class="contact-item">
-              <div class="ci-icon">📧</div>
-              <div class="ci-text">
-                <h4>Email</h4>
-                <p>contact@jambouyo.com</p>
-              </div>
-            </div>
-            <div class="contact-item">
-              <div class="ci-icon">💬</div>
-              <div class="ci-text">
-                <h4>WhatsApp</h4>
-                <p>Disponible 9h–18h (UTC+1)</p>
-              </div>
-            </div>
-            <div class="contact-item">
-              <div class="ci-icon">🌍</div>
-              <div class="ci-text">
-                <h4>Présence mondiale</h4>
-                <p>Afrique · Europe · Amérique · Asie</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="contact-form-box">
-          <h3 style="font-family:var(--font-head); font-size:22px; font-weight:700; margin-bottom:24px;">Envoyez-nous un message</h3>
-          <div class="form-group">
-            <label class="form-label">Votre nom</label>
-            <input class="form-input" type="text" placeholder="Prénom Nom">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Email</label>
-            <input class="form-input" type="email" placeholder="vous@exemple.com">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Sujet</label>
-            <input class="form-input" type="text" placeholder="Ex : Devenir formateur JAM'BOUYO">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Message</label>
-            <textarea class="form-input" rows="5" placeholder="Décrivez votre demande..." style="resize:vertical; min-height:100px; line-height:1.6;"></textarea>
-          </div>
-          <button class="btn btn-primary" style="width:100%; padding:14px; font-size:15px; border-radius:12px; margin-top:4px;">Envoyer le message ✈️</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-// ══════════════════════════════════════
-// COURSES DATA
-// ══════════════════════════════════════
-const courses = [
-  { icon: '🤖', title: 'Introduction à l\'IA', tag: 'Technologie', desc: 'Comprenez les fondements de l\'intelligence artificielle, du machine learning et leurs applications concrètes.', level: 'Débutant', color: '#0f1629', gradient: 'linear-gradient(135deg, #0f1629, #1a1040)' },
-  { icon: '✍️', title: 'Art du Prompt', tag: 'IA', desc: 'Maîtrisez l\'art de formuler des instructions efficaces pour les modèles d\'IA comme ChatGPT, Claude, Gemini.', level: 'Débutant', color: '#0d1a1a', gradient: 'linear-gradient(135deg, #0d1a1a, #0f2a20)' },
-  { icon: '⚡', title: 'IA au quotidien', tag: 'IA pratique', desc: 'Intégrez les outils d\'intelligence artificielle dans vos tâches professionnelles et personnelles du quotidien.', level: 'Tous niveaux', color: '#1a0f2a', gradient: 'linear-gradient(135deg, #1a0f2a, #2a0f1a)' },
-  { icon: '🎨', title: 'Canva Maîtrise', tag: 'Design', desc: 'Créez des visuels professionnels, présentations et contenus graphiques avec Canva de A à Z.', level: 'Débutant', color: '#1a0d0d', gradient: 'linear-gradient(135deg, #1a0d0d, #2a1a0d)' },
-  { icon: '📊', title: 'Comptabilité Générale', tag: 'Finance', desc: 'Apprenez les fondamentaux de la comptabilité : journal, bilan, compte de résultat, TVA et clôture.', level: 'Intermédiaire', color: '#0d1a0d', gradient: 'linear-gradient(135deg, #0d1a0d, #0d2a1a)' },
-  { icon: '🇬🇧', title: 'English Business', tag: 'Langue', desc: 'Communiquez avec aisance en milieu professionnel anglophone : emails, réunions, présentations.', level: 'Intermédiaire', color: '#0a1020', gradient: 'linear-gradient(135deg, #0a1020, #101a2a)' },
-  { icon: '🔤', title: 'English for Beginners', tag: 'Langue', desc: 'Partez de zéro et construisez des bases solides en anglais avec une pédagogie bienveillante.', level: 'Débutant', color: '#0f1a10', gradient: 'linear-gradient(135deg, #0f1a10, #1a0f10)' },
-  { icon: '🇪🇸', title: 'Espagnol', tag: 'Langue', desc: 'Découvrez l\'espagnol ou perfectionnez votre niveau avec nos formateurs natifs et passionnés.', level: 'Tous niveaux', color: '#1a0a0a', gradient: 'linear-gradient(135deg, #1a0a0a, #2a1a0a)' },
-  { icon: '📈', title: 'Excel Complet', tag: 'Bureautique', desc: 'Formules, fonctions avancées, graphiques, tableaux croisés dynamiques — devenez expert Excel.', level: 'Intermédiaire', color: '#0a1a0a', gradient: 'linear-gradient(135deg, #0a1a0a, #0a2a1a)' },
-  { icon: '⚙️', title: 'VBA Excel', tag: 'Bureautique', desc: 'Automatisez vos tâches Excel avec les macros et le langage VBA. Gagnez du temps chaque jour.', level: 'Avancé', color: '#0a0a1a', gradient: 'linear-gradient(135deg, #0a0a1a, #0a1a2a)' },
-  { icon: '🚀', title: 'Création d\'Entreprise', tag: 'Entrepreneuriat', desc: 'De l\'idée au lancement : business plan, forme juridique, financement, stratégie commerciale.', level: 'Tous niveaux', color: '#1a0f0a', gradient: 'linear-gradient(135deg, #1a0f0a, #2a1a0f)' },
-  { icon: '🌱', title: 'RSE', tag: 'Management', desc: 'Responsabilité Sociétale des Entreprises : engagements environnementaux, sociaux et de gouvernance.', level: 'Intermédiaire', color: '#0a1a0a', gradient: 'linear-gradient(135deg, #0a1a0a, #0f1a0f)' },
-  { icon: '👥', title: 'Ressources Humaines', tag: 'Management', desc: 'Recrutement, gestion des talents, droit du travail, GPEC — maîtrisez les fondamentaux RH.', level: 'Intermédiaire', color: '#0f0a1a', gradient: 'linear-gradient(135deg, #0f0a1a, #1a0f2a)' },
-  { icon: '🔒', title: 'QHSE & Sécurité', tag: 'Professionnel', desc: 'Qualité, Hygiène, Sécurité et Environnement : normes ISO, gestion des risques, conformité.', level: 'Avancé', color: '#1a1a0a', gradient: 'linear-gradient(135deg, #1a1a0a, #2a1a0a)' },
-];
-
-function renderCourses(targetId, limit) {
-  const list = limit ? courses.slice(0, limit) : courses;
-  const el = document.getElementById(targetId);
-  if (!el) return;
-  el.innerHTML = list.map((c, i) => `
-    <div class="course-card" onclick="showPage('login')">
-      <div class="course-banner" style="background:${c.gradient};">
-        <span style="position:relative;z-index:1;font-size:42px;">${c.icon}</span>
-      </div>
-      <div class="course-body">
-        <span class="course-tag">${c.tag}</span>
-        <div class="course-title">${c.title}</div>
-        <div class="course-desc">${c.desc}</div>
-        <div class="course-meta">
-          <span class="course-level">📶 ${c.level}</span>
-          <span class="course-cta">S'inscrire →</span>
-        </div>
-      </div>
-    </div>
-  `).join('');
-}
-
-// ══════════════════════════════════════
-// PAGE NAVIGATION
-// ══════════════════════════════════════
-function showPage(name) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  const page = document.getElementById('page-' + name);
-  if (page) {
-    page.classList.add('active');
-    window.scrollTo(0, 0);
-  }
-
-  // Render courses
-  if (name === 'home') renderCourses('featured-courses', 6);
-  if (name === 'courses') renderCourses('all-courses');
-}
-
-// ══════════════════════════════════════
-// MOBILE MENU
-// ══════════════════════════════════════
-function toggleMenu() {
-  document.getElementById('mobileMenu').classList.toggle('open');
-}
-
-// ══════════════════════════════════════
-// AUTH TABS
-// ══════════════════════════════════════
-let activeTab = 'login';
-function switchTab(tab) {
-  activeTab = tab;
-  document.querySelectorAll('.auth-tab').forEach((el, i) => {
-    el.classList.toggle('active', (i === 0 && tab === 'login') || (i === 1 && tab === 'register'));
-  });
-  document.getElementById('form-login').style.display = tab === 'login' ? 'block' : 'none';
-  document.getElementById('form-register').style.display = tab === 'register' ? 'block' : 'none';
-}
-
-function selectRole(el, role) {
-  el.parentElement.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
-  el.classList.add('active');
-}
-
-function doLogin() {
-  showPage('student');
-}
-
-// ══════════════════════════════════════
-// CLASSROOM
-// ══════════════════════════════════════
-function switchSidebarTab(tab, el) {
-  document.querySelectorAll('.sidebar-tab').forEach(t => t.classList.remove('active'));
-  el.classList.add('active');
-  ['chat', 'participants', 'slides'].forEach(t => {
-    const el2 = document.getElementById('tab-' + t);
-    if (el2) el2.style.display = t === tab ? 'flex' : 'none';
-    if (el2 && t === 'chat') el2.style.flexDirection = 'column';
-  });
-}
-
-function toggleCtrl(btn) {
-  btn.classList.toggle('active');
-}
-
-function launchJitsi() {
-  const container = document.getElementById('jitsi-container');
-  const roomName = 'JamBouyo-IA-Module3-' + Math.random().toString(36).substr(2, 6);
-
-  container.innerHTML = `
-    <div style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:24px;">
-      <div style="font-size:48px;opacity:0.6;">🎥</div>
-      <h3 style="font-family:var(--font-head);font-size:20px;">Lancement de la salle Jitsi Meet...</h3>
-      <p style="font-size:14px;color:var(--text-muted);text-align:center;max-width:400px;">La salle de visioconférence s'ouvre dans un nouvel onglet. Partagez le lien ci-dessous avec vos étudiants :</p>
-      <div style="background:var(--white-ghost);border:1px solid var(--glass-border);border-radius:12px;padding:14px 20px;font-size:13px;color:var(--purple-light);word-break:break-all;max-width:400px;text-align:center;">
-        meet.jit.si/${roomName}
-      </div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
-        <button class="btn btn-primary" onclick="window.open('https://meet.jit.si/${roomName}', '_blank')">🚀 Ouvrir Jitsi Meet</button>
-        <button class="btn btn-ghost" onclick="navigator.clipboard.writeText('https://meet.jit.si/${roomName}').then(()=>alert('Lien copié !'))">📋 Copier le lien</button>
-        <button class="btn btn-ghost" onclick="resetJitsi()">↩ Retour</button>
-      </div>
-    </div>
-  `;
-}
-
-function joinJitsi() {
-  const form = document.getElementById('room-code-form');
-  form.style.display = form.style.display === 'none' ? 'block' : 'none';
-}
-
-function enterRoom() {
-  const code = document.getElementById('room-code-input').value.trim() || 'jambouyo-cours';
-  window.open('https://meet.jit.si/' + code, '_blank');
-}
-
-function resetJitsi() {
-  location.reload();
-}
-
-function leaveRoom() {
-  if (confirm('Quitter le cours en cours ?')) showPage('student');
-}
-
-// Chat
-function sendMsg(e) {
-  if (e.key === 'Enter') sendChatMsg();
-}
-
-function sendChatMsg() {
-  const input = document.getElementById('chatInput');
-  const text = input.value.trim();
-  if (!text) return;
-  const msgs = document.querySelector('.chat-messages');
-  const time = new Date().toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'});
-  msgs.innerHTML += `
-    <div class="chat-msg">
-      <div class="cm-avatar" style="background:linear-gradient(135deg,#4fd1c5,#38bdf8)">A</div>
-      <div class="cm-bubble">
-        <div class="cm-name">Aminata</div>
-        <div class="cm-text">${text}</div>
-        <div class="cm-time">${time}</div>
-      </div>
-    </div>
-  `;
-  input.value = '';
-  msgs.scrollTop = msgs.scrollHeight;
-}
-
-// Timer
-let seconds = 0;
-setInterval(() => {
-  seconds++;
-  const h = String(Math.floor(seconds/3600)).padStart(2,'0');
-  const m = String(Math.floor((seconds%3600)/60)).padStart(2,'0');
-  const s = String(seconds%60).padStart(2,'0');
-  const el = document.getElementById('room-timer');
-  if (el) el.textContent = `${h}:${m}:${s}`;
-}, 1000);
-
-// INIT
-renderCourses('featured-courses', 6);
-</script>
+  <script src="app.js"></script>
 </body>
 </html>
