@@ -3,284 +3,167 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JAM'BOUYO Academy — L'Excellence en IA</title>
-  <meta name="description" content="JAM'BOUYO Academy — plateforme e-learning premium. Formations IA, Prompt Engineering, Excel, Comptabilité, Business English et innovation digitale." />
-  <meta name="keywords" content="JAM'BOUYO, formation en ligne, intelligence artificielle, prompt engineering, excel, comptabilité, business english, e-learning, EdTech" />
-  <meta name="author" content="JAM'BOUYO Academy" />
-  <meta property="og:title" content="JAM'BOUYO Academy — Formation • Innovation • Excellence" />
-  <meta property="og:description" content="Plateforme e-learning premium nouvelle génération pour développer les compétences numériques et professionnelles." />
+  <title>JAM'BOUYO Academy — Formation • Innovation • Excellence</title>
+  <meta name="description" content="JAM'BOUYO Academy, plateforme e-learning premium : Intelligence Artificielle, Prompt Engineering, Excel, Canva, Comptabilité, Business English et formations professionnelles." />
+  <meta name="theme-color" content="#050507" />
+  <meta property="og:title" content="JAM'BOUYO Academy — L’excellence numérique accessible à tous" />
+  <meta property="og:description" content="Plateforme e-learning premium nouvelle génération, cours live, admission et accompagnement humain." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://jam-bouyo.com" />
-  <meta name="twitter:card" content="summary_large_image" />
+  <meta property="og:image" content="https://jam-bouyo.com/assets/directeur-poster.png" />
   <link rel="canonical" href="https://jam-bouyo.com" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;1,500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
+  <div class="grain"></div>
   <div class="cursor" id="cursor"></div>
   <div class="cursor-ring" id="cursorRing"></div>
 
-  <div id="toast" class="toast hidden"></div>
-
-  <nav class="top-nav" id="topNav">
-    <button class="nav-logo" onclick="scrollToSection('home')" aria-label="Accueil JAM'BOUYO Academy">
-      <span class="nav-logo-icon">JB</span>
-      <span class="nav-logo-text">JAM'BOUYO <small>Academy</small></span>
-    </button>
-
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#home">Accueil</a></li>
-      <li><a href="#formations">Formations</a></li>
-      <li><a href="#admission">Admission</a></li>
-      <li><a href="#vision">Vision</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-
-    <div class="nav-cta" id="navGuest">
-      <button class="btn-outline" onclick="openModal('loginModal')">Se connecter</button>
-      <button class="btn-gold" onclick="openModal('registerModal')">S'inscrire</button>
+  <header class="navbar" id="navbar">
+    <a class="brand" href="#home" aria-label="JAM'BOUYO Academy">
+      <img src="assets/logo-jb.png" alt="Logo JAM'BOUYO" class="brand-mark" />
+      <span><strong>JAM'BOUYO</strong><small>Academy</small></span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#home">Accueil</a>
+      <a href="#formations">Formations</a>
+      <a href="#vision">À propos</a>
+      <a href="#admission">Admission</a>
+      <a href="#live">Cours en direct</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-actions" id="guestActions">
+      <button class="btn btn-outline" data-open="loginModal">Se connecter</button>
+      <button class="btn btn-gold" data-open="registerModal">S’inscrire</button>
     </div>
-
-    <div class="nav-cta hidden" id="navUser">
-      <span class="nav-welcome" id="navWelcome">Bienvenue</span>
-      <button class="btn-outline" onclick="openDashboard()">Mon espace</button>
-      <button class="btn-gold muted" onclick="logout()">Sortir</button>
+    <div class="nav-actions hidden" id="userActions">
+      <span id="navWelcome" class="nav-welcome"></span>
+      <button class="btn btn-outline" id="dashboardBtn">Mon espace</button>
+      <button class="btn btn-ghost" id="logoutBtn">Déconnexion</button>
     </div>
-
-    <button class="hamburger" onclick="toggleMobileMenu()" aria-label="Menu mobile">
-      <span></span><span></span><span></span>
-    </button>
-  </nav>
+    <button class="mobile-menu" id="mobileMenu" aria-label="Menu"><span></span><span></span><span></span></button>
+  </header>
 
   <main>
-    <section class="hero" id="home">
-      <div class="hero-bg">
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-        <div class="orb orb-3"></div>
-        <div class="hero-grid"></div>
-      </div>
-
-      <div class="hero-left">
-        <div class="hero-eyebrow">
-          <div class="eyebrow-line"></div>
-          <span class="eyebrow-text">JAM'BOUYO Academy</span>
-        </div>
-        <span class="hero-quote-mark">"</span>
-        <h1 class="hero-title">
-          L'excellence<br />
-          n'est pas<br />
-          une option,<br />
-          <span class="gold">c'est notre<br />engagement.</span>
-        </h1>
-        <p class="hero-subtitle">
-          L'intelligence artificielle ouvre des portes infinies, mais seule l'intelligence humaine peut leur donner une direction, une vision et une âme.
-        </p>
-        <div class="hero-author">
-          <div class="author-name">— Monsieur Mamadou NDIAYE</div>
-          <div class="author-title">Directeur de JAM'BOUYO Academy</div>
-        </div>
-        <div class="hero-actions">
-          <button class="btn-play" onclick="scrollToSection('vision')">
-            <span class="play-icon">▶</span>
-            Découvrir notre vision
-          </button>
-          <button class="btn-cta-hero" onclick="openAdmission()"><span>Demander l'admission</span></button>
+    <section id="home" class="hero">
+      <div class="hero-bg"><span class="orb orb-gold"></span><span class="orb orb-blue"></span><span class="hero-grid"></span></div>
+      <div class="hero-copy">
+        <div class="eyebrow"><i></i> JAM’BOUYO ACADEMY</div>
+        <div class="quote-mark">“</div>
+        <h1>L’excellence<br>n’est pas une option,<br><span>c’est notre engagement.</span></h1>
+        <p class="ai-quote">L’intelligence artificielle ouvre des portes infinies, mais seule l’intelligence humaine peut leur donner une direction, une vision et une âme.</p>
+        <div class="signature">— Monsieur Mamadou NDIAYE <small>Directeur de JAM’BOUYO Academy</small></div>
+        <div class="hero-cta">
+          <button class="btn-play" data-scroll="#vision"><span>▶</span> Découvrir notre vision</button>
+          <button class="btn btn-gold" data-open="admissionModal">Faire une demande</button>
         </div>
       </div>
-
-      <div class="hero-right">
-        <div class="hero-portrait"></div>
-        <div class="portrait-img-wrap">
-          <img class="portrait-photo" src="https://i.ibb.co/d0mkWv7p/IMG-3795.jpg" alt="Monsieur Mamadou NDIAYE, Directeur de JAM'BOUYO Academy" />
-        </div>
-        <div class="stats-panel">
-          <div class="stat-card">
-            <div class="stat-icon">⟡</div>
-            <div class="stat-num" id="heroStudents">+0</div>
-            <div class="stat-label">Apprenants<br />inscrits</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon">◈</div>
-            <div class="stat-num">10+</div>
-            <div class="stat-label">Formations<br />professionnelles</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon">◆</div>
-            <div class="stat-num">100%</div>
-            <div class="stat-label">Engagement<br />pour votre réussite</div>
-          </div>
-        </div>
+      <div class="hero-visual" aria-label="Directeur JAM'BOUYO Academy">
+        <img src="assets/directeur.jpg" alt="Monsieur Mamadou NDIAYE" />
+        <div class="visual-fade"></div>
+        <img src="assets/logo-jb.png" class="hero-jb-logo" alt="JB" />
+        <aside class="hero-stats">
+          <div><span>+500</span><small>Apprenants accompagnés</small></div>
+          <div><span>10+</span><small>Formations professionnelles</small></div>
+          <div><span>100%</span><small>Engagement pour votre réussite</small></div>
+        </aside>
       </div>
+      <section class="hero-features" aria-label="Atouts JAM'BOUYO">
+        <article><b>◇</b><strong>Formations de qualité</strong><span>Contenu actualisé et certifiant</span></article>
+        <article><b>◈</b><strong>Accompagnement personnalisé</strong><span>Un suivi humain à chaque étape</span></article>
+        <article><b>▻</b><strong>Cours en direct interactifs</strong><span>Apprenez en temps réel avec nos experts</span></article>
+        <article><b>⬡</b><strong>Certifications reconnues</strong><span>Validez vos compétences</span></article>
+      </section>
     </section>
 
-    <div class="features-bar">
-      <div class="feature-item"><div class="feature-icon-wrap">✦</div><div><div class="feature-title">Formations premium</div><div class="feature-desc">Programmes live, modernes et orientés résultats.</div></div></div>
-      <div class="feature-item"><div class="feature-icon-wrap">◈</div><div><div class="feature-title">Admission humaine</div><div class="feature-desc">Notre équipe accompagne chaque apprenant.</div></div></div>
-      <div class="feature-item"><div class="feature-icon-wrap">▶</div><div><div class="feature-title">Cours en direct</div><div class="feature-desc">Jitsi Meet, partage écran et chat intégrés.</div></div></div>
-      <div class="feature-item"><div class="feature-icon-wrap">⬡</div><div><div class="feature-title">Compétences d'avenir</div><div class="feature-desc">IA, business, finance, langue et productivité.</div></div></div>
-    </div>
-
-    <section class="section formations-section" id="formations">
-      <div class="section-eyebrow"><span>Nos programmes</span></div>
-      <h2 class="section-title reveal">Formations<br /><span class="gold">d'Excellence</span></h2>
-      <p class="section-intro reveal">Des formations payantes mais accessibles, avec admission personnalisée et accompagnement professionnel.</p>
+    <section id="formations" class="section dark-section">
+      <div class="section-head reveal"><span>Nos programmes</span><h2>Formations <em>d’excellence</em></h2><p>Des parcours conçus pour développer des compétences immédiatement utiles.</p></div>
       <div class="formations-grid" id="formationsGrid"></div>
     </section>
 
-    <section class="admission-section" id="admission">
-      <div class="admission-copy reveal">
-        <div class="section-eyebrow"><span>Admission ouverte</span></div>
-        <h2 class="section-title">Rejoindre<br /><span class="gold">l'académie.</span></h2>
-        <p>Les modalités d'accès aux formations sont gérées directement avec le service admission. Aucun paiement automatique n'est intégré au site.</p>
-        <div class="admission-badges">
-          <span>Admission ouverte</span>
-          <span>Places limitées</span>
-          <span>Formation premium accessible</span>
+    <section id="vision" class="director-section section">
+      <div class="director-card reveal">
+        <div class="director-poster"><img src="assets/directeur-poster.png" alt="Citation officielle JAM'BOUYO Academy" /></div>
+        <div class="director-text">
+          <span>Mot du Directeur</span>
+          <h2>Une académie humaine, augmentée par la technologie.</h2>
+          <p>Chez JAM’BOUYO Academy, l’IA est un levier. La vision, l’éthique et l’ambition restent profondément humaines.</p>
+          <blockquote>“L’intelligence artificielle ouvre des portes infinies, mais seule l’intelligence humaine peut leur donner une direction, une vision et une âme.”</blockquote>
+          <strong>— Monsieur Mamadou NDIAYE</strong>
         </div>
-        <a class="btn-whatsapp" href="https://wa.me/33784650529?text=Bonjour%20JAM'BOUYO%20Academy%2C%20je%20souhaite%20des%20informations%20sur%20l'admission." target="_blank" rel="noopener">WhatsApp Admission</a>
       </div>
-      <div class="admission-form-card reveal">
-        <h3>Demande d'admission</h3>
-        <p>Remplissez votre demande. Notre service admission vous contactera rapidement.</p>
-        <form id="admissionForm" class="form-stack">
-          <div class="form-row">
-            <label>Prénom<input id="admPrenom" type="text" required placeholder="Votre prénom" /></label>
-            <label>Nom<input id="admNom" type="text" required placeholder="Votre nom" /></label>
+    </section>
+
+    <section id="admission" class="section admission-section">
+      <div class="admission-grid">
+        <div class="reveal">
+          <span class="mini-tag">Admission ouverte</span>
+          <h2>Rejoignez une formation premium et accessible.</h2>
+          <p>Pas de paiement automatique sur le site. Notre service admission vous contacte directement pour expliquer les modalités et valider votre parcours.</p>
+          <div class="admission-points">
+            <div><b>01</b><strong>Candidature simple</strong><span>Créez votre compte ou faites une demande.</span></div>
+            <div><b>02</b><strong>Contact admission</strong><span>Échange par WhatsApp, email ou téléphone.</span></div>
+            <div><b>03</b><strong>Accès au cours</strong><span>Une fois accepté, votre espace est activé.</span></div>
           </div>
-          <label>Email<input id="admEmail" type="email" required placeholder="votre@email.com" /></label>
-          <label>Téléphone<input id="admTel" type="tel" required placeholder="+33 7 84 65 05 29" /></label>
+        </div>
+        <form id="admissionForm" class="premium-form reveal">
+          <h3>Demande d’admission</h3>
+          <div class="two-cols"><label>Prénom<input id="admPrenom" required></label><label>Nom<input id="admNom" required></label></div>
+          <label>Email<input id="admEmail" type="email" required></label>
+          <label>Téléphone<input id="admTel" type="tel" placeholder="+33 7 84 65 05 29" required></label>
           <label>Formation choisie<select id="admFormation" required></select></label>
-          <label>Message optionnel<textarea id="admMessage" rows="3" placeholder="Votre objectif, votre disponibilité..."></textarea></label>
-          <button class="btn-gold wide" id="admSubmitBtn" type="submit">Envoyer ma demande</button>
+          <label>Message optionnel<textarea id="admMessage" rows="3" placeholder="Votre objectif, disponibilité, niveau..."></textarea></label>
+          <button class="btn btn-gold btn-full" type="submit">Envoyer ma demande</button>
+          <p id="admissionMsg" class="form-msg hidden"></p>
         </form>
       </div>
     </section>
 
-    <section class="testimonial-section" id="vision">
-      <div class="testimonial-grid">
-        <div class="reveal">
-          <div class="testimonial-big-quote">"</div>
-          <p class="testimonial-text">JAM'BOUYO Academy place l'humain au cœur de l'intelligence artificielle : apprendre, créer, innover et transformer son avenir avec méthode.</p>
-          <div class="testimonial-author">
-            <div class="author-avatar">JB</div>
-            <div class="author-info"><strong>JAM'BOUYO Academy</strong><span>Formation • Innovation • Excellence</span></div>
-          </div>
-        </div>
-        <div class="testimonial-stats reveal">
-          <div class="t-stat"><div class="t-stat-num" id="statUsers">0</div><div class="t-stat-label">Comptes créés</div></div>
-          <div class="t-stat"><div class="t-stat-num" id="statAdmissions">0</div><div class="t-stat-label">Demandes d'admission</div></div>
-          <div class="t-stat"><div class="t-stat-num">10+</div><div class="t-stat-label">Programmes en ligne</div></div>
-        </div>
+    <section id="live" class="section live-section">
+      <div class="section-head reveal"><span>Cours en direct</span><h2>Live sessions <em>Jitsi Meet</em></h2><p>Les étudiants acceptés peuvent rejoindre les salles de cours depuis leur dashboard.</p></div>
+      <div class="live-panel reveal">
+        <div><h3>Classe virtuelle JAM’BOUYO</h3><p>Partage écran, chat, audio/vidéo, accompagnement humain.</p></div>
+        <button class="btn btn-outline" id="previewLiveBtn">Voir une salle démo</button>
       </div>
     </section>
 
-    <section class="cta-section">
-      <div class="cta-label">Rejoignez l'élite digitale</div>
-      <h2 class="cta-title reveal">Votre avenir<br /><span class="gold">commence ici.</span></h2>
-      <p class="cta-sub reveal">Créez votre compte, choisissez une formation et envoyez votre demande d'admission. Notre équipe vous accompagne ensuite.</p>
-      <div class="cta-buttons reveal">
-        <button class="btn-primary" onclick="openModal('registerModal')">Créer un compte</button>
-        <button class="btn-secondary" onclick="scrollToSection('formations')">Voir les formations</button>
+    <section id="dashboard" class="section dashboard-section hidden">
+      <div class="section-head"><span>Espace privé</span><h2>Bienvenue <em id="dashPrenom">étudiant</em></h2><p id="dashSubtitle">Votre espace JAM’BOUYO Academy.</p></div>
+      <div class="dashboard-tabs"><button class="active" data-tab="studentPanel">Étudiant</button><button id="adminTabBtn" class="hidden" data-tab="adminPanel">Admin</button></div>
+      <div id="studentPanel" class="dashboard-panel active">
+        <div class="dash-grid">
+          <article class="dash-card"><h3>Mon profil</h3><p id="profileInfo">Chargement...</p></article>
+          <article class="dash-card"><h3>Mes admissions</h3><div id="myAdmissions">Chargement...</div></article>
+          <article class="dash-card"><h3>Accès cours</h3><div id="courseAccess">Admission requise pour débloquer les cours.</div></article>
+        </div>
+      </div>
+      <div id="adminPanel" class="dashboard-panel">
+        <div class="admin-stats" id="adminStats"></div>
+        <div class="admin-table-wrap"><h3>Demandes d’admission</h3><div id="adminAdmissions"></div></div>
+      </div>
+    </section>
+
+    <section id="contact" class="section contact-section">
+      <div class="contact-card reveal">
+        <span class="mini-tag">Contact</span>
+        <h2>Admission & Informations</h2>
+        <p>Pour les admissions, programmes et cours en direct, contactez l’équipe JAM’BOUYO Academy.</p>
+        <div class="contact-actions"><a class="btn btn-gold" href="https://wa.me/33784650529" target="_blank" rel="noopener">WhatsApp</a><a class="btn btn-outline" href="mailto:contact@jam-bouyo.com">contact@jam-bouyo.com</a></div>
       </div>
     </section>
   </main>
 
-  <footer id="contact">
-    <div class="footer-logo">JAM'<span>BOUYO</span> ACADEMY</div>
-    <div class="footer-copy">© 2026 JAM'BOUYO Academy — Tous droits réservés<br /><a href="mailto:contact@jam-bouyo.com">contact@jam-bouyo.com</a></div>
-    <div class="footer-links">
-      <a href="#formations">Formations</a>
-      <a href="#admission">Admission</a>
-      <a href="https://wa.me/33784650529" target="_blank" rel="noopener">WhatsApp</a>
-    </div>
-  </footer>
+  <footer class="footer"><div><img src="assets/logo-jb.png" alt="JB"><strong>JAM’BOUYO Academy</strong><span>Formation • Innovation • Excellence</span></div><p>© 2026 JAM’BOUYO Academy. Tous droits réservés.</p></footer>
 
-  <a class="wa-float" href="https://wa.me/33784650529?text=Bonjour%20JAM'BOUYO%20Academy%2C%20je%20souhaite%20des%20informations%20sur%20vos%20formations." target="_blank" rel="noopener" aria-label="Admission & Informations WhatsApp">
-    <span class="wa-icon">☘</span>
-    <span class="wa-text"><strong>Admission & Informations</strong><small>Contactez-nous</small></span>
-  </a>
+  <a class="whatsapp-float" href="https://wa.me/33784650529" target="_blank" rel="noopener"><span>✆</span><strong>Admission & Informations</strong></a>
 
-  <div class="modal-overlay" id="loginModal" onclick="closeModalOutside(event,'loginModal')">
-    <div class="modal-card">
-      <button class="modal-close" onclick="closeModal('loginModal')">×</button>
-      <h2>Connexion</h2>
-      <p>Accédez à votre espace JAM'BOUYO.</p>
-      <form id="loginForm" class="form-stack">
-        <label>Email<input id="loginEmail" type="email" required placeholder="votre@email.com" /></label>
-        <label>Mot de passe<input id="loginPassword" type="password" required placeholder="••••••••" /></label>
-        <button class="btn-gold wide" id="loginBtn" type="submit">Se connecter</button>
-      </form>
-      <button class="link-btn" onclick="switchModal('loginModal','registerModal')">Créer un compte</button>
-      <button class="link-btn" onclick="resetPasswordPrompt()">Mot de passe oublié ?</button>
-    </div>
-  </div>
-
-  <div class="modal-overlay" id="registerModal" onclick="closeModalOutside(event,'registerModal')">
-    <div class="modal-card">
-      <button class="modal-close" onclick="closeModal('registerModal')">×</button>
-      <h2>Créer un compte</h2>
-      <p>Rejoignez JAM'BOUYO Academy.</p>
-      <form id="registerForm" class="form-stack">
-        <div class="form-row">
-          <label>Prénom<input id="regPrenom" type="text" required placeholder="Prénom" /></label>
-          <label>Nom<input id="regNom" type="text" required placeholder="Nom" /></label>
-        </div>
-        <label>Email<input id="regEmail" type="email" required placeholder="votre@email.com" /></label>
-        <label>Rôle<select id="regRole"><option value="etudiant">Étudiant</option><option value="formateur">Formateur</option></select></label>
-        <label>Mot de passe<input id="regPassword" type="password" minlength="8" required placeholder="Minimum 8 caractères" /></label>
-        <button class="btn-gold wide" id="registerBtn" type="submit">Créer mon compte</button>
-      </form>
-      <button class="link-btn" onclick="switchModal('registerModal','loginModal')">J'ai déjà un compte</button>
-    </div>
-  </div>
-
-  <div class="modal-overlay" id="liveModal" onclick="closeModalOutside(event,'liveModal')">
-    <div class="modal-card live-card-modal">
-      <button class="modal-close" onclick="closeLiveModal()">×</button>
-      <h2 id="liveModalTitle">Salle de cours</h2>
-      <div id="jitsiContainer" class="jitsi-container"></div>
-    </div>
-  </div>
-
-  <section class="dashboard hidden" id="studentDashboard">
-    <aside class="dash-side">
-      <div class="dash-brand">JB</div>
-      <button class="dash-link active" onclick="showStudentTab('studentHome', this)">Accueil</button>
-      <button class="dash-link" onclick="showStudentTab('studentAdmissions', this)">Admissions</button>
-      <button class="dash-link" onclick="showStudentTab('studentCourses', this)">Cours</button>
-      <button class="dash-link" onclick="showStudentTab('studentProfile', this)">Profil</button>
-      <button class="dash-link danger" onclick="closeDashboard()">Fermer</button>
-    </aside>
-    <div class="dash-main">
-      <header class="dash-head"><h2 id="studentWelcome">Bienvenue 👋</h2><button class="btn-outline" onclick="logout()">Déconnexion</button></header>
-      <div class="dash-tab" id="studentHome"><div class="dash-grid" id="studentStats"></div></div>
-      <div class="dash-tab hidden" id="studentAdmissions"><h3>Mes demandes d'admission</h3><div id="myAdmissionsList" class="data-list"></div></div>
-      <div class="dash-tab hidden" id="studentCourses"><h3>Cours disponibles</h3><div id="studentCoursesGrid" class="dash-courses-grid"></div></div>
-      <div class="dash-tab hidden" id="studentProfile"><h3>Mon profil</h3><div class="profile-card" id="studentProfileCard"></div></div>
-    </div>
-  </section>
-
-  <section class="dashboard hidden" id="adminDashboard">
-    <aside class="dash-side admin-side">
-      <div class="dash-brand">ADMIN</div>
-      <button class="dash-link active" onclick="showAdminTab('adminHome', this)">Statistiques</button>
-      <button class="dash-link" onclick="showAdminTab('adminAdmissions', this)">Admissions</button>
-      <button class="dash-link" onclick="showAdminTab('adminStudents', this)">Étudiants</button>
-      <button class="dash-link" onclick="showAdminTab('adminCourses', this)">Cours</button>
-      <button class="dash-link danger" onclick="closeDashboard()">Fermer</button>
-    </aside>
-    <div class="dash-main">
-      <header class="dash-head"><h2 id="adminWelcome">Dashboard Admin</h2><button class="btn-outline" onclick="logout()">Déconnexion</button></header>
-      <div class="dash-tab" id="adminHome"><div class="dash-grid" id="adminStats"></div></div>
-      <div class="dash-tab hidden" id="adminAdmissions"><h3>Gestion des admissions</h3><div id="adminAdmissionsList" class="data-list"></div></div>
-      <div class="dash-tab hidden" id="adminStudents"><h3>Gestion étudiants</h3><input class="search-input" id="studentSearch" placeholder="Rechercher un étudiant..." oninput="renderAdminStudents()" /><div id="adminStudentsList" class="data-list"></div></div>
-      <div class="dash-tab hidden" id="adminCourses"><h3>Gestion des cours</h3><div id="adminCoursesGrid" class="dash-courses-grid"></div></div>
-    </div>
-  </section>
+  <div class="modal" id="loginModal"><div class="modal-card"><button class="modal-close" data-close>×</button><h2>Connexion</h2><form id="loginForm"><label>Email<input id="loginEmail" type="email" required></label><label>Mot de passe<input id="loginPassword" type="password" required></label><button class="btn btn-gold btn-full">Se connecter</button><p id="loginMsg" class="form-msg hidden"></p></form><button class="link-btn" data-switch="registerModal">Créer un compte</button></div></div>
+  <div class="modal" id="registerModal"><div class="modal-card"><button class="modal-close" data-close>×</button><h2>Créer un compte</h2><form id="registerForm"><div class="two-cols"><label>Prénom<input id="regPrenom" required></label><label>Nom<input id="regNom" required></label></div><label>Email<input id="regEmail" type="email" required></label><label>Rôle<select id="regRole"><option value="etudiant">Étudiant</option><option value="formateur">Formateur</option></select></label><label>Mot de passe<input id="regPassword" type="password" minlength="6" required></label><button class="btn btn-gold btn-full">S’inscrire</button><p id="registerMsg" class="form-msg hidden"></p></form><button class="link-btn" data-switch="loginModal">Déjà inscrit ? Se connecter</button></div></div>
+  <div class="modal" id="admissionModal"><div class="modal-card"><button class="modal-close" data-close>×</button><h2>Faire une demande d’admission</h2><p>Remplissez le formulaire admission directement dans la section dédiée.</p><button class="btn btn-gold btn-full" data-scroll="#admission" data-close>Aller au formulaire</button></div></div>
 
   <script src="app.js"></script>
 </body>
