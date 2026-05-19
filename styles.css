@@ -69,3 +69,49 @@
 }
 
 }
+/* ===== IMAGE VISION PREMIUM ===== */
+
+.vision-premium-container{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:60px;
+    flex-wrap:wrap;
+}
+
+.vision-premium-text{
+    flex:1;
+    min-width:300px;
+}
+
+.vision-image{
+    flex:1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.vision-image img{
+    width:100%;
+    max-width:520px;
+    border-radius:24px;
+    object-fit:cover;
+    box-shadow:
+        0 0 40px rgba(212,175,55,.18),
+        0 0 120px rgba(0,40,255,.08);
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+    .vision-premium-container{
+        flex-direction:column;
+        gap:40px;
+    }
+
+    .vision-image img{
+        max-width:100%;
+    }
+
+}
