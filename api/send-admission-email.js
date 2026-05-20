@@ -42,7 +42,33 @@ export default async function handler(req, res) {
 
     const result = await response.json();
 
-    return res.status(200).json(result);
+await fetch("https://api.brevo.com/v3/smtp/email", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "api-key": process.env.BREVO_API_KEY,
+  },
+  body: JSON.stringify({
+    sender: {
+      name: "JAM'BOUYO Academy",
+      email: "contact@jam-bouyo.com",
+    },
+    to: [{ email: data.email }],
+    subject: "Votre demande d’admission a bien été reçue",
+    htmlContent: `
+      <h2>Demande d’admission reçue</h2>
+      <p>Bonjour ${data.first_name || ""},</p>
+      <p>Nous avons bien reçu votre demande d’admission pour :</p>
+      <p><strong>${data.program || ""}</strong></p>
+      <p>Notre service admission vous contactera rapidement pour la suite.</p>
+      <p>Merci pour votre confiance.</p>
+      <br>
+      <p><strong>JAM’BOUYO Academy</strong><br>L’excellence numérique accessible à tous.</p>
+    `,
+  }),
+});
+
+return res.status(200).json(result);
 
   } catch (err) {
     return res.status(500).json({
