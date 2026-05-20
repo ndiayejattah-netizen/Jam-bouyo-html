@@ -92,6 +92,19 @@ async function submitAdmission(e){
   if(!sb){ msg(m,'Supabase non chargé.',false); return; }
   const {error}= await sb.from('admissions').insert(row);
   if(error){ msg(m,error.message,false); return; }
+  fetch("/api/send-admission-email", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    first_name: row.prenom,
+    last_name: row.nom,
+    email: row.email,
+    phone: row.telephone,
+    program: row.formation,
+  }),
+});
   msg(m,'Demande envoyée. Notre service admission vous contactera rapidement.',true); e.target.reset(); if(currentUser) loadStudent();
 }
 
