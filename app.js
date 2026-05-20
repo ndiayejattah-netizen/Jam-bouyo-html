@@ -59,7 +59,23 @@ function updateUI(){
     $('#navWelcome').textContent = `Bienvenue ${prenom} 👋`;
     $('#dashPrenom').textContent = prenom;
     $('#profileInfo').innerHTML = `<strong>${safe(prenom)} ${safe(currentProfile?.nom||'')}</strong><br>${safe(currentUser.email)}<br>Rôle : ${safe(currentProfile?.role||'etudiant')}`;
-    if(['admin','formateur'].includes(currentProfile?.role)){ $('#adminTabBtn')?.classList.remove('hidden'); loadAdmin(); } else $('#adminTabBtn')?.classList.add('hidden');
+    if(currentProfile?.role === "admin"){
+  $("#adminTabBtn")?.classList.remove("hidden");
+  $("#teacherTabBtn")?.classList.remove("hidden");
+  loadAdmin();
+  loadTeacher();
+}
+
+else if(currentProfile?.role === "formateur"){
+  $("#teacherTabBtn")?.classList.remove("hidden");
+  $("#adminTabBtn")?.classList.add("hidden");
+  loadTeacher();
+}
+
+else{
+  $("#teacherTabBtn")?.classList.add("hidden");
+  $("#adminTabBtn")?.classList.add("hidden");
+} loadAdmin(); } else $('#adminTabBtn')?.classList.add('hidden');
     loadStudent();
   }
 }
@@ -122,7 +138,44 @@ async function login(e){
   msg(m,'Connexion réussie.',true); closeModal($('#loginModal .modal-card')); await refreshAuth(); scrollToSel('#dashboard'); $('#dashboard')?.classList.remove('hidden');
 }
 async function logout(){ if(sb){ await sb.auth.signOut(); currentUser=null; currentProfile=null; updateUI(); $('#dashboard')?.classList.add('hidden'); } }
+async function loadTeacher(){
 
+  if(!sb || !currentUser) return;
+
+  const {data,error} = await sb
+    .from("teacher_courses")
+    .select("*")
+    .eq("teacher_id", currentUser.id);
+
+  const box = $("#teacherCourses");
+
+  if(error){
+    box.innerHTML = `<p class="error">${error.message}</p>`;
+    return;
+  }
+
+  if(!data?.length){
+    box.innerHTML = "<p>Aucun cours assigné.</p>";
+    return;
+  }
+
+  box.innerHTML = data.map(course => `
+    <div class="admission-row">
+      <div>
+        <strong>${course.course_title}</strong><br>
+        <small>${course.course_slug}</small>
+      </div>
+
+      <div>
+        <a class="btn btn-gold"
+           href="${course.jitsi_room}"
+           target="_blank">
+           Rejoindre le live
+        </a>
+      </div>
+    </div>
+  `).join("");
+}
 function init(){
   renderCourses(); refreshAuth();
   window.addEventListener('scroll',()=>$('#navbar')?.classList.toggle('scrolled',scrollY>30));
