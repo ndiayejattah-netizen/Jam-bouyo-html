@@ -227,14 +227,22 @@ alt="Logo JB"
 
     <section id="dashboard" class="section dashboard-section hidden">
       <div class="section-head"><span>Espace privé</span><h2>Bienvenue <em id="dashPrenom">étudiant</em></h2><p id="dashSubtitle">Votre espace JAM’BOUYO Academy.</p></div>
-      <div class="dashboard-tabs"><button class="active" data-tab="studentPanel">Étudiant</button><button id="adminTabBtn" class="hidden" data-tab="adminPanel">Admin</button></div>
+      <div class="dashboard-tabs"><button class="active" data-tab="studentPanel">Étudiant</button>
+<button id="teacherTabBtn" class="hidden" data-tab="teacherPanel">Formateur</button>
+<button id="adminTabBtn" class="hidden" data-tab="adminPanel">Admin</button></div>
       <div id="studentPanel" class="dashboard-panel active">
         <div class="dash-grid">
           <article class="dash-card"><h3>Mon profil</h3><p id="profileInfo">Chargement...</p></article>
           <article class="dash-card"><h3>Mes admissions</h3><div id="myAdmissions">Chargement...</div></article>
           <article class="dash-card"><h3>Accès cours</h3><div id="courseAccess">Admission requise pour débloquer les cours.</div></article>
         </div>
-      </div>
+      </div><div id="teacherPanel" class="dashboard-panel">
+  <div class="dash-card">
+    <h3>Espace Formateur</h3>
+    <p>Vos cours, salles live et apprenants liés à vos formations.</p>
+    <div id="teacherCourses">Chargement...</div>
+  </div>
+</div>
       <div id="adminPanel" class="dashboard-panel">
         <div class="admin-stats" id="adminStats"></div>
         <div class="admin-table-wrap"><h3>Demandes d’admission</h3><div id="adminAdmissions"></div></div>
