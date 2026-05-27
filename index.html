@@ -270,7 +270,37 @@
         <div class="admin-table-wrap"><h3>Demandes d’admission</h3><div id="adminAdmissions"></div></div>
       </div>
     </section>
+<div id="teacherPanel" class="dashboard-card hidden">
+  <h2>Espace Formateur</h2>
 
+  <div class="admin-stats">
+    <div class="stat-card">
+      <span class="stat-label">Cours assignés</span>
+      <strong id="teacherCoursesCount">0</strong>
+    </div>
+
+    <div class="stat-card">
+      <span class="stat-label">Étudiants</span>
+      <strong id="teacherStudentsCount">0</strong>
+    </div>
+  </div>
+
+  <div class="admin-table-wrap">
+    <h3>Mes cours</h3>
+
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Programme</th>
+          <th>Horaire</th>
+          <th>Live</th>
+        </tr>
+      </thead>
+
+      <tbody id="teacherCoursesTable">
+      </tbody>
+    </table>
+  </div>
     <section id="contact" class="section contact-section">
       <div class="contact-card reveal">
         <span class="mini-tag">Contact</span>
