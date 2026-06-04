@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JAM'BOUYO Academy — Formation Premium en ligne</title>
+  <meta name="description" content="Intelligence Artificielle, Automatisation, Data, Business — des formations conçues pour faire de vous un professionnel de demain." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,500&family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="jb-root">
+
+  <!-- ── LOGIN MODAL ── -->
+  <div class="jb-modal-overlay" id="loginModal" onclick="if(event.target===this)closeModal()">
+    <div class="jb-modal">
+      <button class="jb-modal-close" onclick="closeModal()">✕</button>
+      <img src="logo-jb.webp" alt="Logo" style="height:48px;margin-bottom:8px;" />
+      <h2>Espace Étudiant</h2>
+      <p>Connectez-vous pour accéder à vos cours en direct.</p>
+      <form onsubmit="handleLogin(event)" style="display:flex;flex-direction:column;gap:14px;margin-top:8px;">
+        <label>Email<input type="email" placeholder="votre@email.com" required /></label>
+        <label>Mot de passe<input type="password" placeholder="••••••••" required /></label>
+        <p id="loginError" style="color:#E8652A;font-size:13px;margin:0;display:none;">Veuillez remplir tous les champs.</p>
+        <button type="submit" class="jb-btn jb-btn-primary jb-btn-full">Se connecter</button>
+      </form>
+      <p style="text-align:center;margin-top:16px;font-size:13px;color:#64748b;">
+        Pas encore de compte ? <a href="#admission" onclick="closeModal()" style="color:#1A3A8F;">Demander l'admission</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- ── NAVBAR ── -->
+  <header class="jb-navbar">
+    <a class="jb-brand" href="#">
+      <img src="logo-jb.webp" alt="Logo JAM'BOUYO" class="jb-brand-mark" />
+      <div>
+        <strong>JAM'BOUYO</strong>
+        <small>Academy</small>
+      </div>
+    </a>
+    <nav class="jb-nav-links" id="navLinks">
+      <a href="#home" onclick="closeMobileMenu()">Accueil</a>
+      <a href="#formations" onclick="closeMobileMenu()">Formations</a>
+      <a href="#vision" onclick="closeMobileMenu()">À propos</a>
+      <a href="#admission" onclick="closeMobileMenu()">Admission</a>
+      <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+    </nav>
+    <div class="jb-nav-actions">
+      <button class="jb-btn jb-btn-outline" onclick="openModal()">Se connecter</button>
+      <a href="#admission" class="jb-btn jb-btn-primary">S'inscrire</a>
+    </div>
+    <button class="jb-mobile-menu" id="menuBtn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <main>
+
+    <!-- ── HERO ── -->
+    <section id="home" class="jb-hero">
+      <div class="jb-hero-bg"></div>
+      <div class="jb-hero-grid"></div>
+
+      <div class="jb-hero-copy">
+        <div class="jb-eyebrow">
+          <span class="jb-dot"></span>
+          JAM'BOUYO ACADEMY — Formation Premium
+        </div>
+        <h1 class="jb-hero-title">
+          Formez-vous aux<br />
+          compétences qui<br />
+          <em>façonnent le monde<br />de demain.</em>
+        </h1>
+        <p class="jb-hero-subtitle">
+          Intelligence Artificielle, Automatisation, Data, Business — des formations
+          conçues pour faire de vous un professionnel de demain, dès aujourd'hui.
+        </p>
+        <div class="jb-director-quote">
+          <blockquote>
+            "L'intelligence artificielle ouvre des portes infinies, mais seule
+            l'intelligence humaine peut leur donner une direction, une vision et une âme."
+            <cite>— Monsieur Mamadou NDIAYE, Directeur de JAM'BOUYO Academy</cite>
+          </blockquote>
+        </div>
+        <div class="jb-hero-cta">
+          <a href="#admission" class="jb-btn jb-btn-primary jb-btn-lg">Demander l'admission</a>
+          <a href="#formations" class="jb-btn jb-btn-ghost jb-btn-lg">Voir les formations</a>
+        </div>
+        <div class="jb-stats">
+          <div class="jb-stat"><strong>+500</strong><span>Apprenants accompagnés</span></div>
+          <div class="jb-stat"><strong>10+</strong><span>Formations professionnelles</span></div>
+          <div class="jb-stat"><strong>100%</strong><span>Engagement réussite</span></div>
+        </div>
+      </div>
+
+      <div class="jb-hero-visual">
+        <img src="directeur.webp" alt="Monsieur Mamadou NDIAYE — Directeur JAM'BOUYO Academy" class="jb-hero-photo" />
+        <div class="jb-hero-badge jb-badge-top">
+          <div class="jb-badge-icon jb-icon-blue">🎓</div>
+          <div>
+            <strong>Formations certifiantes</strong>
+            <span>Reconnues &amp; actualisées</span>
+          </div>
+        </div>
+        <div class="jb-hero-badge jb-badge-bottom">
+          <div class="jb-badge-icon jb-icon-orange">⚡</div>
+          <div>
+            <strong>Cours en direct</strong>
+            <span>Live avec vos formateurs</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="jb-hero-features">
+        <div class="jb-feat-item">
+          <div class="jb-feat-icon">🎓</div>
+          <div><strong>Formations de qualité</strong><span>Contenu actualisé et certifiant</span></div>
+        </div>
+        <div class="jb-feat-item">
+          <div class="jb-feat-icon">👤</div>
+          <div><strong>Accompagnement personnalisé</strong><span>Un suivi humain à chaque étape</span></div>
+        </div>
+        <div class="jb-feat-item">
+          <div class="jb-feat-icon">📡</div>
+          <div><strong>Cours en direct interactifs</strong><span>Apprenez en temps réel</span></div>
+        </div>
+        <div class="jb-feat-item">
+          <div class="jb-feat-icon">✅</div>
+          <div><strong>Certifications reconnues</strong><span>Validez vos compétences</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── FORMATIONS ── -->
+    <section id="formations" class="jb-section jb-section-alt">
+      <div class="jb-section-head">
+        <div class="jb-tag">Nos programmes</div>
+        <h2>Formations <em>d'excellence</em></h2>
+        <p>Des parcours conçus pour développer des compétences immédiatement utiles.</p>
+      </div>
+      <div class="jb-formations-grid">
+        <div class="jb-formation-card">
+          <span class="jb-card-num">01</span>
+          <div class="jb-card-badge jb-badge-popular">Populaire</div>
+          <h3>Intelligence Artificielle</h3>
+          <p>Maîtrisez les outils d'IA générative pour gagner en productivité et créer de nouvelles opportunités.</p>
+          <a href="#admission" class="jb-card-link">Demander l'admission →</a>
+        </div>
+        <div class="jb-formation-card">
+          <span class="jb-card-num">02</span>
+          <div class="jb-card-badge jb-badge-premium">Premium</div>
+          <h3>Prompt Engineering</h3>
+          <p>Apprenez à piloter ChatGPT, Claude et Gemini avec des prompts professionnels percutants.</p>
+          <a href="#admission" class="jb-card-link">Demander l'admission →</a>
+        </div>
+        <div class="jb-formation-card">
+          <span class="jb-card-num">03</span>
+          <div class="jb-card-badge jb-badge-creative">Créatif</div>
+          <h3>Canva</h3>
+          <p>Créez des visuels, supports de formation et contenus marketing modernes sans être graphiste.</p>
+          <a href="#admission" class="jb-card-link">Demander l'admission →</a>
+        </div>
+        <div class="jb-formation-card">
+          <span class="jb-card-num">04</span>
+          <div class="jb-card-badge jb-badge-essential">Essentiel</div>
+          <h3>Excel</h3>
+          <p>Formules, tableaux croisés, analyse de données, productivité et reporting professionnel.</p>
+          <a href="#admission" class="jb-card-link">Demander l'admission →</a>
+        </div>
+        <div class="jb-formation-card">
+          <span class="jb-card-num">05</span>
+          <div class="jb-card-badge jb-badge-advanced">Avancé</div>
+          <h3>VBA Excel</h3>
+          <p>Automatisez vos tâches répétitives et créez des outils performants avec les macros Excel.</p>
+          <a href="#admission" class="jb-card-link">Demander l'admission →</a>
+        </div>
+        <div class="jb-formation-card">
+          <span class="jb-card-num">06</span>
+          <div class="jb-card-badge jb-badge-business">Business</div>
+          <h3>Comptabilité</h3>
+          <p>Bases, logique comptable et pratique professionnelle pour entreprises et indépendants.</p>
+          <a href="#admission" class="jb-card-link">Demander l'admission →</a>
+        </div>
+        <div class="jb-formation-card">
+          <span class="jb-card-num">07</span>
+          <div class="jb-card-badge jb-badge-langue">Langue</div>
+          <h3>Anglais</h3>
+          <p>Renforcez votre communication orale et écrite pour un usage professionnel quotidien.</p>
+          <a href="#admission" class="jb-card-link">Demander l'admission →</a>
+        </div>
+        <div class="jb-formation-card">
+          <span class="jb-card-num">08</span>
+          <div class="jb-card-badge jb-badge-business">Carrière</div>
+          <h3>Business English</h3>
+          <p>Anglais professionnel pour réunions, emails et carrière internationale.</p>
+          <a href="#admission" class="jb-card-link">Demander l'admission →</a>
+        </div>
+        <div class="jb-formation-card">
+          <span class="jb-card-num">09</span>
+          <div class="jb-card-badge jb-badge-popular">Entrepreneuriat</div>
+          <h3>Création d'entreprise</h3>
+          <p>Structurez votre idée, construisez un business model solide et lancez-vous avec méthode.</p>
+          <a href="#admission" class="jb-card-link">Demander l'admission →</a>
+        </div>
+        <div class="jb-formation-card">
+          <span class="jb-card-num">10</span>
+          <div class="jb-card-badge jb-badge-essential">Finance</div>
+          <h3>Banque &amp; Assurance</h3>
+          <p>Comprendre les produits financiers, la relation client et le secteur bancaire.</p>
+          <a href="#admission" class="jb-card-link">Demander l'admission →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── COURS EN DIRECT CTA ── -->
+    <section id="live" class="jb-section jb-section-live">
+      <div class="jb-live-cta-inner">
+        <div class="jb-tag jb-tag-live">
+          <span class="jb-live-dot"></span>
+          COURS EN DIRECT — LIVE SESSIONS JITSI MEET
+        </div>
+        <h2>Classe virtuelle <em>JAM'BOUYO</em></h2>
+        <p>
+          Les étudiants acceptés peuvent rejoindre les salles de cours depuis leur dashboard.<br />
+          Partage d'écran, chat, audio/vidéo, accompagnement humain.
+        </p>
+        <div class="jb-live-cta-actions">
+          <button class="jb-btn jb-btn-orange jb-btn-lg" onclick="openModal()">
+            Accéder à mon espace étudiant
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── POURQUOI JAM'BOUYO ── -->
+    <section class="jb-section jb-section-white">
+      <div class="jb-why-grid">
+        <div class="jb-why-visual">
+          <img src="jb-vision.webp" alt="Vision JAM'BOUYO" class="jb-why-img" />
+          <div class="jb-why-float">
+            <strong>500+</strong>
+            <span>Apprenants déjà formés</span>
+          </div>
+        </div>
+        <div class="jb-why-text">
+          <div class="jb-tag">Pourquoi nous choisir</div>
+          <h2>Une académie qui mise sur<br /><em>l'humain avant tout.</em></h2>
+          <p class="jb-why-intro">Chez JAM'BOUYO Academy, chaque apprenant bénéficie d'un suivi personnalisé, de cas pratiques réels et d'une communauté engagée.</p>
+          <div class="jb-why-items">
+            <div class="jb-why-item">
+              <div class="jb-why-icon jb-icon-blue">🎯</div>
+              <div>
+                <h4>Accompagnement personnalisé</h4>
+                <p>Un suivi humain à chaque étape de votre parcours, du premier cours à la certification.</p>
+              </div>
+            </div>
+            <div class="jb-why-item">
+              <div class="jb-why-icon jb-icon-orange">💼</div>
+              <div>
+                <h4>Cas pratiques métiers</h4>
+                <p>Des exercices concrets tirés de situations professionnelles réelles, appliquables dès demain.</p>
+              </div>
+            </div>
+            <div class="jb-why-item">
+              <div class="jb-why-icon jb-icon-violet">🏆</div>
+              <div>
+                <h4>Certification reconnue</h4>
+                <p>Validez vos compétences avec une attestation professionnelle valorisable sur votre CV.</p>
+              </div>
+            </div>
+            <div class="jb-why-item">
+              <div class="jb-why-icon jb-icon-green">🔄</div>
+              <div>
+                <h4>Contenus mis à jour</h4>
+                <p>Formations actualisées en continu pour rester au niveau des dernières évolutions.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── VISION ── -->
+    <section id="vision" class="jb-section jb-vision-section">
+      <div class="jb-vision-inner">
+        <div class="jb-vision-text">
+          <div class="jb-tag jb-tag-dark">Notre vision</div>
+          <h2>Une académie humaine,<br /><em>augmentée par la technologie.</em></h2>
+          <p>Chez JAM'BOUYO Academy, l'intelligence artificielle n'est pas une fin. C'est un levier puissant au service de la créativité, de l'ambition, de l'apprentissage et de la transformation professionnelle.</p>
+          <div class="jb-pillars">
+            <div class="jb-pillar"><strong>01</strong><span>Former</span></div>
+            <div class="jb-pillar"><strong>02</strong><span>Innover</span></div>
+            <div class="jb-pillar"><strong>03</strong><span>Élever</span></div>
+          </div>
+          <a href="#admission" class="jb-btn-white">Rejoindre l'académie →</a>
+        </div>
+        <div class="jb-vision-img-wrap">
+          <img src="directeur.webp" alt="Directeur JAM'BOUYO" class="jb-vision-img" />
+          <div class="jb-vision-frame"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TÉMOIGNAGES ── -->
+    <section class="jb-section jb-section-alt">
+      <div class="jb-section-head">
+        <div class="jb-tag">Témoignages</div>
+        <h2>Ce que disent nos <em>apprenants</em></h2>
+        <p>Des professionnels, étudiants et entrepreneurs qui ont transformé leur carrière.</p>
+      </div>
+      <div class="jb-testi-grid">
+        <div class="jb-testi-card">
+          <div class="jb-stars">★★★★★</div>
+          <blockquote>"La formation IA m'a permis de gagner 3h par jour sur mes tâches répétitives. Le suivi personnalisé fait vraiment la différence."</blockquote>
+          <div class="jb-author">
+            <div class="jb-avatar">AK</div>
+            <div>
+              <div class="jb-author-name">Aminata Kouyaté</div>
+              <div class="jb-author-role">Assistante RH, Dakar</div>
+            </div>
+          </div>
+        </div>
+        <div class="jb-testi-card">
+          <div class="jb-stars">★★★★★</div>
+          <blockquote>"Excellente formation en VBA Excel. Les exercices pratiques correspondent parfaitement aux besoins en entreprise. Je recommande vivement."</blockquote>
+          <div class="jb-author">
+            <div class="jb-avatar">MB</div>
+            <div>
+              <div class="jb-author-name">Moussa Baldé</div>
+              <div class="jb-author-role">Contrôleur de gestion, Abidjan</div>
+            </div>
+          </div>
+        </div>
+        <div class="jb-testi-card">
+          <div class="jb-stars">★★★★★</div>
+          <blockquote>"Le Prompt Engineering m'a ouvert des opportunités freelance incroyables. La méthode pédagogique est claire, progressive et immédiatement applicable."</blockquote>
+          <div class="jb-author">
+            <div class="jb-avatar">FD</div>
+            <div>
+              <div class="jb-author-name">Fatou Diallo</div>
+              <div class="jb-author-role">Créatrice de contenu, Paris</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ADMISSION ── -->
+    <section id="admission" class="jb-section jb-section-white">
+      <div class="jb-admission-grid">
+        <div class="jb-admission-left">
+          <div class="jb-tag">Admission ouverte</div>
+          <h2>Rejoignez une formation<br />premium et accessible.</h2>
+          <p>Pas de paiement automatique sur le site. Notre service admission vous contacte directement pour expliquer les modalités et valider votre parcours.</p>
+          <div class="jb-steps">
+            <div class="jb-step">
+              <div class="jb-step-num">01</div>
+              <div><h4>Candidature simple</h4><span>Créez votre compte ou faites une demande.</span></div>
+            </div>
+            <div class="jb-step">
+              <div class="jb-step-num">02</div>
+              <div><h4>Contact admission</h4><span>Échange par WhatsApp, email ou téléphone.</span></div>
+            </div>
+            <div class="jb-step">
+              <div class="jb-step-num">03</div>
+              <div><h4>Accès au cours</h4><span>Une fois accepté, votre espace est activé.</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="jb-form-card">
+          <h3>Demande d'admission</h3>
+          <form onsubmit="handleInscription(event)">
+            <div class="jb-two-cols">
+              <label>Prénom<input type="text" placeholder="Votre prénom" required /></label>
+              <label>Nom<input type="text" placeholder="Votre nom" required /></label>
+            </div>
+            <label>Email<input type="email" placeholder="votre@email.com" required /></label>
+            <label>Téléphone<input type="tel" placeholder="indicatif pays + numéro de téléphone" /></label>
+            <label>Formation choisie
+              <select required>
+                <option value="">— Sélectionner —</option>
+                <option>Intelligence Artificielle</option>
+                <option>Prompt Engineering</option>
+                <option>Canva</option>
+                <option>Excel</option>
+                <option>VBA Excel</option>
+                <option>Comptabilité</option>
+                <option>Anglais</option>
+                <option>Business English</option>
+                <option>Création d'entreprise</option>
+                <option>Banque &amp; Assurance</option>
+              </select>
+            </label>
+            <label>Message optionnel<textarea rows="3" placeholder="Votre objectif, disponibilité, niveau..."></textarea></label>
+            <button type="submit" class="jb-btn jb-btn-primary jb-btn-full">Envoyer ma demande</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CONTACT ── -->
+    <section id="contact" class="jb-section jb-section-alt">
+      <div class="jb-contact-card">
+        <div class="jb-tag" style="justify-content:center;margin-bottom:16px;">Contact</div>
+        <h2>Admission &amp; Informations</h2>
+        <p>Pour les admissions, programmes et cours en direct, contactez l'équipe JAM'BOUYO Academy. Nous répondons rapidement.</p>
+        <div class="jb-contact-actions">
+          <a href="https://wa.me/33784650529" class="jb-btn jb-btn-primary jb-btn-lg" target="_blank">💬 WhatsApp</a>
+          <a href="mailto:contact@jam-bouyo.com" class="jb-btn jb-btn-outline jb-btn-lg">contact@jam-bouyo.com</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── FOOTER ── -->
+  <footer class="jb-footer">
+    <div class="jb-footer-grid">
+      <div class="jb-footer-brand">
+        <img src="logo-jb.webp" alt="JAM'BOUYO Academy" />
+        <strong>JAM'BOUYO</strong>
+        <small>Academy</small>
+        <p>Plateforme de formation premium en IA, Automatisation, Data et Compétences professionnelles.</p>
+        <div class="jb-socials">
+          <a href="#" class="jb-social">in</a>
+          <a href="#" class="jb-social">tw</a>
+          <a href="#" class="jb-social">fb</a>
+          <a href="#" class="jb-social">yt</a>
+        </div>
+      </div>
+      <div class="jb-footer-col">
+        <h4>Formations</h4>
+        <ul>
+          <li><a href="#formations">Intelligence Artificielle</a></li>
+          <li><a href="#formations">Prompt Engineering</a></li>
+          <li><a href="#formations">VBA Excel</a></li>
+          <li><a href="#formations">Data &amp; Analyse</a></li>
+          <li><a href="#formations">Business English</a></li>
+          <li><a href="#formations">Création d'entreprise</a></li>
+        </ul>
+      </div>
+      <div class="jb-footer-col">
+        <h4>Académie</h4>
+        <ul>
+          <li><a href="#vision">À propos</a></li>
+          <li><a href="#vision">Notre méthode</a></li>
+          <li><a href="#admission">Admissions</a></li>
+          <li><a href="#live">Cours en direct</a></li>
+          <li><a href="#">Témoignages</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="jb-footer-col">
+        <h4>Contact</h4>
+        <p class="jb-footer-contact">
+          📧 <a href="mailto:contact@jam-bouyo.com">contact@jam-bouyo.com</a><br /><br />
+          💬 <a href="https://wa.me/33784650529">WhatsApp</a>
+        </p>
+      </div>
+    </div>
+    <div class="jb-footer-bottom">
+      <p>© 2026 JAM'BOUYO Academy. Tous droits réservés. Formation • Innovation • Excellence</p>
+      <div class="jb-footer-links">
+        <a href="#">Mentions légales</a>
+        <a href="#">Politique de confidentialité</a>
+        <a href="#">CGU</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp float -->
+  <a class="jb-wa-float" href="https://wa.me/33784650529" target="_blank" rel="noopener noreferrer">
+    <div class="jb-wa-icon">✆</div>
+    <strong>Admission &amp; Informations</strong>
+  </a>
+
+  <!-- Toast -->
+  <div id="toast" style="display:none;position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#0D1B3E;color:white;padding:14px 28px;border-radius:100px;font-size:14px;font-weight:600;box-shadow:0 20px 80px rgba(13,27,62,.15);z-index:9999;white-space:nowrap;">
+    ✅ Demande envoyée ! Nous vous contacterons rapidement.
+  </div>
+
+</div><!-- .jb-root -->
+
+<script>
+  // Mobile menu
+  function toggleMenu() {
+    const nav = document.getElementById('navLinks');
+    nav.classList.toggle('open');
+  }
+  function closeMobileMenu() {
+    document.getElementById('navLinks').classList.remove('open');
+  }
+
+  // Login modal
+  function openModal() {
+    document.getElementById('loginModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    document.getElementById('loginModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  // Login → dashboard
+  function handleLogin(e) {
+    e.preventDefault();
+    window.location.href = 'dashboard.html';
+  }
+
+  // Inscription toast
+  function handleInscription(e) {
+    e.preventDefault();
+    const toast = document.getElementById('toast');
+    toast.style.display = 'block';
+    setTimeout(() => { toast.style.display = 'none'; }, 4000);
+    e.target.reset();
+  }
+</script>
+</body>
+</html>
