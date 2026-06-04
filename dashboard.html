@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Espace Étudiant — Jambouyo Academy</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<div class="jb-dashboard">
+
+  <!-- Header -->
+  <header class="jb-dash-header">
+    <a href="index.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--blue-night);">
+      <img src="logo-jb.webp" alt="Jambouyo" style="width:36px;height:36px;object-fit:contain;" />
+      <div>
+        <strong style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:15px;letter-spacing:0.06em;display:block;">JAMBOUYO</strong>
+        <small style="font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--blue-acad);font-weight:600;">ACADEMY</small>
+      </div>
+    </a>
+
+    <div class="jb-dash-user">
+      <span>Bienvenue, <strong id="dash-email" style="color:var(--blue-night);"></strong></span>
+      <button class="jb-btn jb-btn-outline jb-btn-sm" onclick="logout()">Déconnexion</button>
+    </div>
+  </header>
+
+  <!-- Body -->
+  <main class="jb-dash-body">
+
+    <!-- Welcome -->
+    <div class="jb-dash-welcome">
+      <h1>🎓 Espace Étudiant</h1>
+      <p>Accédez à vos cours en direct. Cliquez sur une salle pour rejoindre la visioconférence directement dans votre navigateur.</p>
+    </div>
+
+    <!-- Jitsi embed (active room) -->
+    <div class="jb-jitsi-embed" id="jitsi-container" style="display:none;">
+      <div class="jb-jitsi-bar">
+        <span id="jitsi-room-label">📡 Salle active</span>
+        <button class="jb-btn jb-btn-outline" onclick="closeJitsi()">✕ Fermer</button>
+      </div>
+      <iframe
+        id="jitsi-frame"
+        src=""
+        allow="camera; microphone; fullscreen; display-capture"
+        style="width:100%;height:520px;border:none;display:block;"
+      ></iframe>
+    </div>
+
+    <!-- Rooms grid -->
+    <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.1rem;font-weight:700;color:var(--blue-night);margin-bottom:16px;">
+      Salles de cours disponibles
+    </h2>
+    <div class="jb-rooms-grid">
+
+      <!-- IA -->
+      <div class="jb-room-card" onclick="joinRoom('IA','🤖 Intelligence Artificielle','🤖')">
+        <div class="jb-room-icon" style="background:rgba(26,58,143,0.1);">🤖</div>
+        <div class="jb-room-info">
+          <h3>Intelligence Artificielle</h3>
+          <span class="jb-room-status" style="color:#22c55e;">● En cours</span>
+        </div>
+        <button class="jb-btn jb-btn-primary jb-btn-sm">Rejoindre</button>
+      </div>
+
+      <!-- Prompt -->
+      <div class="jb-room-card" onclick="joinRoom('Prompt','💡 Prompt Engineering','💡')">
+        <div class="jb-room-icon" style="background:rgba(232,101,42,0.1);">💡</div>
+        <div class="jb-room-info">
+          <h3>Prompt Engineering</h3>
+          <span class="jb-room-status" style="color:#f59e0b;">● Programmé</span>
+        </div>
+        <button class="jb-btn jb-btn-primary jb-btn-sm">Rejoindre</button>
+      </div>
+
+      <!-- Excel -->
+      <div class="jb-room-card" onclick="joinRoom('Excel','📊 Excel & Données','📊')">
+        <div class="jb-room-icon" style="background:rgba(46,125,50,0.1);">📊</div>
+        <div class="jb-room-info">
+          <h3>Excel &amp; Données</h3>
+          <span class="jb-room-status" style="color:#94a3b8;">● Disponible</span>
+        </div>
+        <button class="jb-btn jb-btn-primary jb-btn-sm">Rejoindre</button>
+      </div>
+
+      <!-- Canva -->
+      <div class="jb-room-card" onclick="joinRoom('Canva','🎨 Canva Design','🎨')">
+        <div class="jb-room-icon" style="background:rgba(123,31,162,0.1);">🎨</div>
+        <div class="jb-room-info">
+          <h3>Canva Design</h3>
+          <span class="jb-room-status" style="color:#94a3b8;">● Disponible</span>
+        </div>
+        <button class="jb-btn jb-btn-primary jb-btn-sm">Rejoindre</button>
+      </div>
+
+      <!-- Business -->
+      <div class="jb-room-card" onclick="joinRoom('Business','🌍 Business Digital','🌍')">
+        <div class="jb-room-icon" style="background:rgba(0,105,92,0.1);">🌍</div>
+        <div class="jb-room-info">
+          <h3>Business Digital</h3>
+          <span class="jb-room-status" style="color:#f59e0b;">● Programmé</span>
+        </div>
+        <button class="jb-btn jb-btn-primary jb-btn-sm">Rejoindre</button>
+      </div>
+
+      <!-- Compta -->
+      <div class="jb-room-card" onclick="joinRoom('Compta','📁 Comptabilité','📁')">
+        <div class="jb-room-icon" style="background:rgba(198,40,40,0.1);">📁</div>
+        <div class="jb-room-info">
+          <h3>Comptabilité</h3>
+          <span class="jb-room-status" style="color:#94a3b8;">● Disponible</span>
+        </div>
+        <button class="jb-btn jb-btn-primary jb-btn-sm">Rejoindre</button>
+      </div>
+
+    </div>
+
+    <!-- Info cards -->
+    <div class="jb-dash-info-cards">
+      <div class="jb-info-card">
+        <div class="jb-info-icon">📅</div>
+        <h4>Planning des cours</h4>
+        <p>Les cours en direct ont lieu chaque semaine. Consultez votre email pour le calendrier complet et les rappels.</p>
+      </div>
+      <div class="jb-info-card">
+        <div class="jb-info-icon">💬</div>
+        <h4>Support WhatsApp</h4>
+        <p>Une question ? Notre équipe est disponible sur WhatsApp pour vous accompagner tout au long de votre parcours.</p>
+      </div>
+      <div class="jb-info-card">
+        <div class="jb-info-icon">🏆</div>
+        <h4>Certificats</h4>
+        <p>À l'issue de chaque formation, recevez votre certificat de réussite Jambouyo Academy reconnu par les employeurs.</p>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  // Auth guard
+  const email = sessionStorage.getItem('jb_email');
+  if (!email) { window.location.href = 'index.html'; }
+  else { document.getElementById('dash-email').textContent = email; }
+
+  function joinRoom(roomKey, label, icon) {
+    const url = `https://meet.jit.si/JambuyoAcademy-${roomKey}#config.prejoinPageEnabled=false`;
+    document.getElementById('jitsi-frame').src = url;
+    document.getElementById('jitsi-room-label').textContent = `${icon} ${label}`;
+    const container = document.getElementById('jitsi-container');
+    container.style.display = 'block';
+    container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function closeJitsi() {
+    document.getElementById('jitsi-frame').src = '';
+    document.getElementById('jitsi-container').style.display = 'none';
+  }
+
+  function logout() {
+    sessionStorage.removeItem('jb_email');
+    window.location.href = 'index.html';
+  }
+</script>
+
+</body>
+</html>
