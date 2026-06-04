@@ -438,6 +438,7 @@ textarea{resize:vertical;}
           </div>
         </div>
         <div class="jb-form-card">
+          <form id="admissionForm">
           <h3>Demande d&#x27;admission</h3>
           <div class="jb-two-cols">
             <label>Pr&eacute;nom<input type="text" placeholder="Votre pr&eacute;nom"></label>
@@ -453,6 +454,7 @@ textarea{resize:vertical;}
           </label>
           <label>Message optionnel<textarea rows="3" placeholder="Votre objectif, disponibilit&eacute;, niveau..."></textarea></label>
           <button class="jb-btn jb-btn-primary jb-btn-full">Envoyer ma demande</button>
+            </form>
         </div>
       </div>
     </section>
@@ -855,6 +857,19 @@ document.addEventListener("click", function(e) {
     container.appendChild(lbl);
   }
 })();
+</script>
+  <script>
+document.getElementById("admissionForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    alert("Test formulaire OK");
+
+    const data = {
+        first_name: document.querySelector('input[type="text"]').value
+    };
+
+    console.log(data);
+});
 </script>
 </body>
 </html>
