@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Espace Étudiant — JAM'BOUYO Academy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #1e293b;
+      background: #F8F9FC;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    p { margin: 0; }
+    h1, h2, h3, h4 { margin: 0; }
+    button { cursor: pointer; font-family: inherit; }
+
+    :root {
+      --blue-night: #0D1B3E;
+      --blue-acad: #1A3A8F;
+      --blue-mid: #2452B0;
+      --blue-light: #EFF3FF;
+      --orange: #E8652A;
+      --off-white: #F8F9FC;
+      --white: #FFFFFF;
+      --border: #E2E8F0;
+      --grey-text: #64748B;
+      --grey-light: #94A3B8;
+      --light-bg: #F1F5F9;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+      --shadow-md: 0 4px 16px rgba(0,0,0,.09), 0 2px 6px rgba(0,0,0,.05);
+      --shadow-lg: 0 16px 48px rgba(0,0,0,.13), 0 4px 12px rgba(0,0,0,.07);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+    }
+
+    /* Buttons */
+    .jb-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 14px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      text-decoration: none;
+      border: 2px solid transparent;
+      transition: all .22s;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .jb-btn-primary {
+      background: var(--blue-acad);
+      color: white;
+      border-color: var(--blue-acad);
+    }
+    .jb-btn-primary:hover { background: var(--blue-mid); border-color: var(--blue-mid); }
+    .jb-btn-outline {
+      background: transparent;
+      color: var(--blue-acad);
+      border-color: var(--blue-acad);
+    }
+    .jb-btn-outline:hover { background: var(--blue-light); }
+    .jb-btn-ghost {
+      background: transparent;
+      color: var(--grey-text);
+      border: 1.5px solid var(--border);
+    }
+    .jb-btn-ghost:hover { background: var(--off-white); }
+    .jb-btn-sm {
+      font-size: .8rem !important;
+      padding: 6px 14px !important;
+    }
+
+    /* Dashboard layout */
+    .jb-dashboard {
+      min-height: 100vh;
+      background: var(--off-white);
+    }
+
+    /* Header */
+    .jb-dash-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: white;
+      border-bottom: 1px solid var(--border);
+      padding: 0 32px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow-sm);
+    }
+    .jb-dash-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .jb-dash-brand img { width: 32px; height: 32px; object-fit: contain; }
+    .jb-dash-brand-text strong {
+      display: block;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      color: var(--blue-night);
+    }
+    .jb-dash-brand-text small {
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--grey-light);
+    }
+    .jb-dash-user {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: .9rem;
+      color: var(--grey-text);
+    }
+    .jb-dash-avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--blue-light);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 13px;
+      color: var(--blue-acad);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    /* Body */
+    .jb-dash-body {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 24px;
+    }
+
+    /* Welcome */
+    .jb-dash-welcome { margin-bottom: 40px; }
+    .jb-dash-welcome h1 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--blue-night);
+      margin-bottom: 10px;
+    }
+    .jb-dash-welcome p {
+      font-size: 1rem;
+      color: var(--grey-text);
+      line-height: 1.6;
+      max-width: 640px;
+    }
+
+    /* Live badge */
+    .jb-live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 6px 14px 6px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--grey-text);
+      margin-bottom: 32px;
+      box-shadow: var(--shadow-sm);
+    }
+    .jb-live-dot {
+      width: 9px; height: 9px;
+      background: #22c55e;
+      border-radius: 50%;
+      animation: pulse-live 1.4s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    @keyframes pulse-live {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .5; transform: scale(1.3); }
+    }
+
+    /* Jitsi embed */
+    .jb-jitsi-embed {
+      background: white;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 40px;
+      border: 1px solid var(--border);
+      display: none;
+    }
+    .jb-jitsi-embed.active { display: block; }
+    .jb-jitsi-bar {
+      background: var(--blue-night);
+      color: white;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: .9rem;
+      font-weight: 600;
+    }
+    .jb-jitsi-bar .jb-btn-close-room {
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.2);
+      color: white;
+      font-size: .78rem;
+      padding: 5px 14px;
+      border-radius: 100px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: background .2s;
+    }
+    .jb-jitsi-bar .jb-btn-close-room:hover { background: rgba(255,255,255,.2); }
+    .jb-jitsi-bar .room-name-label { display: flex; align-items: center; gap: 10px; }
+    .jb-jitsi-bar .room-icon { font-size: 1.2rem; }
+    iframe#jitsiFrame {
+      width: 100%;
+      height: 600px;
+      border: none;
+      display: block;
+    }
+
+    /* Section title */
+    .jb-dash-section-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--blue-night);
+      margin-bottom: 16px;
+    }
+
+    /* Rooms grid */
+    .jb-rooms-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .jb-room-card {
+      background: white;
+      border-radius: var(--radius-md);
+      padding: 20px 22px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      transition: box-shadow .2s, transform .2s;
+      cursor: pointer;
+    }
+    .jb-room-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .jb-room-card.active-room {
+      border-color: var(--blue-acad);
+      box-shadow: 0 0 0 2px rgba(26,58,143,0.15), var(--shadow-md);
+    }
+    .jb-room-icon {
+      width: 52px; height: 52px;
+      border-radius: 13px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    .jb-room-info { flex: 1; min-width: 0; }
+    .jb-room-info h3 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--blue-night);
+      margin-bottom: 4px;
+    }
+    .jb-room-status {
+      font-size: .78rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .jb-status-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+      display: inline-block;
+    }
+    .jb-room-arrow {
+      color: var(--grey-light);
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .jb-room-card:hover .jb-room-arrow { color: var(--blue-acad); }
+
+    /* Info cards */
+    .jb-dash-info-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .jb-info-card {
+      background: white;
+      border-radius: var(--radius-md);
+      padding: 24px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+    .jb-info-icon { font-size: 1.8rem; margin-bottom: 12px; }
+    .jb-info-card h4 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--blue-night);
+      margin-bottom: 8px;
+    }
+    .jb-info-card p { font-size: .87rem; color: var(--grey-text); line-height: 1.6; }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .jb-dash-info-cards { grid-template-columns: 1fr; }
+      .jb-rooms-grid { grid-template-columns: 1fr; }
+      .jb-dash-header { padding: 0 16px; }
+      .jb-dash-body { padding: 32px 16px; }
+      iframe#jitsiFrame { height: 420px; }
+    }
+    @media (max-width: 600px) {
+      .jb-dash-user span { display: none; }
+      .jb-dash-welcome h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="jb-dashboard">
+
+  <!-- ============ HEADER ============ -->
+  <header class="jb-dash-header">
+    <a href="index.html" class="jb-dash-brand">
+      <img src="logo-jb.png" alt="JAM'BOUYO" />
+      <div class="jb-dash-brand-text">
+        <strong>JAM'BOUYO</strong>
+        <small>Academy</small>
+      </div>
+    </a>
+    <div class="jb-dash-user">
+      <span>Étudiant(e)</span>
+      <div class="jb-dash-avatar">JB</div>
+      <a href="index.html" class="jb-btn jb-btn-ghost jb-btn-sm">Déconnexion</a>
+    </div>
+  </header>
+
+  <!-- ============ BODY ============ -->
+  <main class="jb-dash-body">
+
+    <!-- Welcome -->
+    <div class="jb-dash-welcome">
+      <h1>Bienvenue dans votre espace étudiant 👋</h1>
+      <p>Rejoignez une salle de cours ci-dessous pour participer à vos sessions en direct. Cliquez sur une formation pour ouvrir la salle Jitsi correspondante.</p>
+    </div>
+
+    <!-- Live badge -->
+    <div class="jb-live-badge">
+      <span class="jb-live-dot"></span>
+      Sessions en direct disponibles
+    </div>
+
+    <!-- Jitsi embed (hidden until room selected) -->
+    <div class="jb-jitsi-embed" id="jitsiContainer">
+      <div class="jb-jitsi-bar">
+        <div class="room-name-label">
+          <span class="room-icon" id="activeRoomIcon">📡</span>
+          <span id="activeRoomName">Salle en cours</span>
+        </div>
+        <button class="jb-btn-close-room" onclick="closeRoom()">✕ Quitter la salle</button>
+      </div>
+      <iframe id="jitsiFrame" src="" allow="camera; microphone; fullscreen; display-capture" allowfullscreen></iframe>
+    </div>
+
+    <!-- Rooms -->
+    <p class="jb-dash-section-title">Salles de cours disponibles</p>
+    <div class="jb-rooms-grid" id="roomsGrid">
+
+      <div class="jb-room-card" onclick="openRoom(this, 'IA &amp; ChatGPT Pro', '🤖', 'https://meet.jit.si/JambuyoAcademy-IA', 'rgba(26,58,143,0.08)')">
+        <div class="jb-room-icon" style="background:rgba(26,58,143,0.08);">🤖</div>
+        <div class="jb-room-info">
+          <h3>IA &amp; ChatGPT Pro</h3>
+          <div class="jb-room-status" style="color:#22c55e;">
+            <span class="jb-status-dot"></span> Salle ouverte
+          </div>
+        </div>
+        <span class="jb-room-arrow">→</span>
+      </div>
+
+      <div class="jb-room-card" onclick="openRoom(this, 'Prompt Engineering', '⚡', 'https://meet.jit.si/JambuyoAcademy-Prompt', 'rgba(139,92,246,0.1)')">
+        <div class="jb-room-icon" style="background:rgba(139,92,246,0.1);">⚡</div>
+        <div class="jb-room-info">
+          <h3>Prompt Engineering</h3>
+          <div class="jb-room-status" style="color:#22c55e;">
+            <span class="jb-status-dot"></span> Salle ouverte
+          </div>
+        </div>
+        <span class="jb-room-arrow">→</span>
+      </div>
+
+      <div class="jb-room-card" onclick="openRoom(this, 'Excel Pro', '📊', 'https://meet.jit.si/JambuyoAcademy-Excel', 'rgba(16,185,129,0.1)')">
+        <div class="jb-room-icon" style="background:rgba(16,185,129,0.1);">📊</div>
+        <div class="jb-room-info">
+          <h3>Excel Pro</h3>
+          <div class="jb-room-status" style="color:#22c55e;">
+            <span class="jb-status-dot"></span> Salle ouverte
+          </div>
+        </div>
+        <span class="jb-room-arrow">→</span>
+      </div>
+
+      <div class="jb-room-card" onclick="openRoom(this, 'Canva &amp; Design Visuel', '🎨', 'https://meet.jit.si/JambuyoAcademy-Canva', 'rgba(232,101,42,0.1)')">
+        <div class="jb-room-icon" style="background:rgba(232,101,42,0.1);">🎨</div>
+        <div class="jb-room-info">
+          <h3>Canva &amp; Design Visuel</h3>
+          <div class="jb-room-status" style="color:#22c55e;">
+            <span class="jb-status-dot"></span> Salle ouverte
+          </div>
+        </div>
+        <span class="jb-room-arrow">→</span>
+      </div>
+
+      <div class="jb-room-card" onclick="openRoom(this, 'Business &amp; Entrepreneuriat', '💼', 'https://meet.jit.si/JambuyoAcademy-Business', 'rgba(37,99,235,0.09)')">
+        <div class="jb-room-icon" style="background:rgba(37,99,235,0.09);">💼</div>
+        <div class="jb-room-info">
+          <h3>Business &amp; Entrepreneuriat</h3>
+          <div class="jb-room-status" style="color:#22c55e;">
+            <span class="jb-status-dot"></span> Salle ouverte
+          </div>
+        </div>
+        <span class="jb-room-arrow">→</span>
+      </div>
+
+      <div class="jb-room-card" onclick="openRoom(this, 'Comptabilité &amp; Gestion', '🧾', 'https://meet.jit.si/JambuyoAcademy-Compta', 'rgba(245,158,11,0.1)')">
+        <div class="jb-room-icon" style="background:rgba(245,158,11,0.1);">🧾</div>
+        <div class="jb-room-info">
+          <h3>Comptabilité &amp; Gestion</h3>
+          <div class="jb-room-status" style="color:#22c55e;">
+            <span class="jb-status-dot"></span> Salle ouverte
+          </div>
+        </div>
+        <span class="jb-room-arrow">→</span>
+      </div>
+
+    </div>
+
+    <!-- Info cards -->
+    <p class="jb-dash-section-title">Ressources</p>
+    <div class="jb-dash-info-cards">
+      <div class="jb-info-card">
+        <div class="jb-info-icon">📋</div>
+        <h4>Supports de cours</h4>
+        <p>Vos formateurs partagent les supports et ressources directement dans la salle Jitsi, dans le chat de session.</p>
+      </div>
+      <div class="jb-info-card">
+        <div class="jb-info-icon">💬</div>
+        <h4>Besoin d'aide ?</h4>
+        <p>Contactez l'équipe pédagogique sur WhatsApp ou par email. Réponse garantie sous 24h les jours ouvrés.</p>
+      </div>
+      <div class="jb-info-card">
+        <div class="jb-info-icon">🏆</div>
+        <h4>Certification</h4>
+        <p>À la fin de votre formation, obtenez votre certificat JAM'BOUYO Academy reconnu par nos partenaires professionnels.</p>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  let activeCard = null;
+
+  function openRoom(card, name, icon, url, bg) {
+    // Update active card styling
+    if (activeCard) activeCard.classList.remove('active-room');
+    card.classList.add('active-room');
+    activeCard = card;
+
+    // Update Jitsi bar info
+    document.getElementById('activeRoomName').textContent = name;
+    document.getElementById('activeRoomIcon').textContent = icon;
+
+    // Load Jitsi iframe
+    document.getElementById('jitsiFrame').src = url;
+
+    // Show embed and scroll to it
+    const container = document.getElementById('jitsiContainer');
+    container.classList.add('active');
+    container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function closeRoom() {
+    document.getElementById('jitsiContainer').classList.remove('active');
+    document.getElementById('jitsiFrame').src = '';
+    if (activeCard) {
+      activeCard.classList.remove('active-room');
+      activeCard = null;
+    }
+  }
+</script>
+</body>
+</html>
