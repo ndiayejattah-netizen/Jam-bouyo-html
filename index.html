@@ -860,15 +860,35 @@ document.addEventListener("click", function(e) {
 </script>
   <script>
 document.getElementById("admissionForm").addEventListener("submit", async function(e) {
-    e.preventDefault();
+  e.preventDefault();
 
-    alert("Test formulaire OK");
+  const form = e.target;
+  const data = {
+    first_name: form.querySelector('input[placeholder="Prénom"]').value,
+    last_name: form.querySelector('input[placeholder="Nom"]').value,
+    email: form.querySelector('input[type="email"]').value,
+    phone: form.querySelector('input[type="tel"]').value,
+    program: form.querySelector("select").value
+  };
 
-    const data = {
-        first_name: document.querySelector('input[type="text"]').value
-    };
+  try {
+    const response = await fetch("/api/send-admission-email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    });
 
-    console.log(data);
+    if (!response.ok) {
+      throw new Error("Erreur lors de l’envoi");
+    }
+
+    alert("Votre demande a bien été envoyée ✅");
+    form.reset();
+  } catch (error) {
+    alert("Erreur : votre demande n’a pas pu être envoyée.");
+  }
 });
 </script>
 </body>
