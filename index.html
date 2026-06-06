@@ -436,14 +436,48 @@ textarea{resize:vertical;}
             <div class="jb-step"><div class="jb-step-num">02</div><div><h4>Contact admission</h4><span>Echange par WhatsApp, email ou t&eacute;l&eacute;phone.</span></div></div>
             <div class="jb-step"><div class="jb-step-num">03</div><div><h4>Acc&egrave;s au cours</h4><span>Une fois accept&eacute;, votre espace est activ&eacute;.</span></div></div>
           </div>
-        </div>
-        <div class="jb-form-card">
-          <form id="admissionForm" action="mailto:contact@jam-bouyo.com" method="post">
-          <h3>Demande d&#x27;admission</h3>
-          <div class="jb-two-cols">
-            <label>Pr&eacute;nom<input type="text" placeholder="Votre pr&eacute;nom"></label>
-            <label>Nom<input type="text" placeholder="Votre nom"></label>
-          </div>
+        </div><div class="jb-form-card">
+  <h3>Demande d’admission</h3>
+
+  <form id="admissionForm">
+    <div class="jb-two-cols">
+      <label>Prénom
+        <input name="first_name" type="text" placeholder="Votre prénom" required>
+      </label>
+
+      <label>Nom
+        <input name="last_name" type="text" placeholder="Votre nom" required>
+      </label>
+    </div>
+
+    <label>Email
+      <input name="email" type="email" placeholder="votre@email.com" required>
+    </label>
+
+    <label>Téléphone
+      <input name="phone" type="tel" placeholder="indicatif pays + numéro" required>
+    </label>
+
+    <label>Formation choisie
+      <select name="program" required>
+        <option value="">— Sélectionner —</option>
+        <option value="Intelligence Artificielle">Intelligence Artificielle</option>
+        <option value="Prompt Engineering">Prompt Engineering</option>
+        <option value="Automatisation">Automatisation</option>
+        <option value="Data & Excel">Data & Excel</option>
+        <option value="Business Digital">Business Digital</option>
+      </select>
+    </label>
+
+    <label>Message optionnel
+      <textarea name="message" rows="3" placeholder="Votre objectif"></textarea>
+    </label>
+
+    <button type="submit" class="jb-btn jb-btn-primary jb-btn-full">
+      Envoyer ma demande
+    </button>
+  </form>
+</div>
           <label>Email<input type="email" placeholder="votre@email.com"></label>
           <label>T&eacute;l&eacute;phone<input type="tel" placeholder="indicatif pays + num&eacute;ro"></label>
           <label>Formation choisie
@@ -857,11 +891,39 @@ document.addEventListener("click", function(e) {
     container.appendChild(lbl);
   }
 })();
-</script>
-  <script>
+<script>
 document.getElementById("admissionForm").addEventListener("submit", async function(e) {
   e.preventDefault();
-  alert("Formulaire connecté ✅");
+
+  const form = e.target;
+
+  const data = {
+    first_name: form.first_name.value,
+    last_name: form.last_name.value,
+    email: form.email.value,
+    phone: form.phone.value,
+    program: form.program.value,
+    message: form.message.value
+  };
+
+  try {
+    const response = await fetch("/api/send-admission-email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    });
+
+    if (!response.ok) {
+      throw new Error("Erreur serveur");
+    }
+
+    alert("Votre demande a bien été envoyée ✅");
+    form.reset();
+  } catch (error) {
+    alert("Erreur : votre demande n’a pas pu être envoyée.");
+  }
 });
 </script>
 </body>
