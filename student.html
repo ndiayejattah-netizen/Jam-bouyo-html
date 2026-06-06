@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mon espace étudiant — JAM'BOUYO Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --white:#FFFFFF;--off:#F7F8FC;--blue:#0D1B3E;--blue2:#1A3A8F;--orange:#E8652A;
+  --text:#5A6275;--border:#D4DDEF;--light:#EEF2F9;--shadow:0 12px 40px rgba(13,27,62,.10);
+  --radius:20px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--off);color:var(--blue)}
+a{text-decoration:none;color:inherit}
+.jb-shell{min-height:100vh;display:grid;grid-template-columns:280px 1fr}
+.jb-sidebar{background:var(--blue);color:#fff;padding:28px 22px;position:sticky;top:0;height:100vh}
+.jb-brand{display:flex;align-items:center;gap:12px;margin-bottom:36px}
+.jb-brand img{width:42px;height:42px;object-fit:contain;background:white;border-radius:12px}
+.jb-brand strong{display:block;font-size:16px;letter-spacing:.08em}
+.jb-brand small{font-size:10px;letter-spacing:.22em;color:rgba(255,255,255,.55);text-transform:uppercase}
+.jb-menu{display:grid;gap:8px}
+.jb-menu button,.jb-menu a{border:0;background:transparent;color:rgba(255,255,255,.72);text-align:left;padding:13px 14px;border-radius:12px;font-weight:700;font-size:14px;cursor:pointer}
+.jb-menu button.active,.jb-menu button:hover,.jb-menu a:hover{background:rgba(255,255,255,.10);color:#fff}
+.jb-main{padding:32px;min-width:0}
+.jb-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;gap:18px}
+.jb-top h1{font-family:"Plus Jakarta Sans",Inter,sans-serif;font-size:clamp(26px,4vw,40px);letter-spacing:-.03em}
+.jb-sub{color:var(--text);margin-top:6px;line-height:1.6}
+.jb-user{background:white;border:1px solid var(--border);border-radius:999px;padding:8px 14px;color:var(--text);font-weight:700;font-size:13px;box-shadow:0 4px 14px rgba(13,27,62,.06)}
+.jb-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:26px}
+.jb-card{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:24px;box-shadow:0 4px 18px rgba(13,27,62,.06)}
+.jb-card h3{font-size:17px;margin-bottom:8px}
+.jb-card p{color:var(--text);font-size:14px;line-height:1.6}
+.jb-icon{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;background:var(--light);margin-bottom:14px}
+.jb-section{display:none}.jb-section.active{display:block}
+.jb-panel{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow);margin-bottom:20px}
+.jb-panel h2{font-size:22px;margin-bottom:14px}
+.jb-list{display:grid;gap:12px}
+.jb-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;border:1px solid var(--border);border-radius:14px;background:#fff}
+.jb-row span{color:var(--text);font-size:14px}
+.jb-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:10px;padding:11px 16px;font-weight:800;cursor:pointer;font-size:14px}
+.jb-btn-primary{background:var(--orange);color:#fff}
+.jb-btn-blue{background:var(--blue2);color:#fff}
+.jb-btn-light{background:var(--light);color:var(--blue)}
+.jb-form{display:grid;gap:14px;max-width:620px}
+.jb-two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+label{font-size:12px;font-weight:800;color:var(--blue);display:grid;gap:7px}
+input,select,textarea{border:1.5px solid var(--border);border-radius:12px;padding:12px 14px;font:inherit;background:#F8F9FC;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--blue2);background:white;box-shadow:0 0 0 3px rgba(26,58,143,.08)}
+.jb-empty{padding:24px;border:1px dashed var(--border);border-radius:16px;color:var(--text);background:#FBFCFF}
+.jb-video{aspect-ratio:16/9;background:linear-gradient(135deg,#0D1B3E,#1A3A8F);border-radius:18px;display:flex;align-items:center;justify-content:center;color:white;font-weight:800;margin-top:12px}
+.jb-mobile-top{display:none}
+@media(max-width:900px){
+  .jb-shell{grid-template-columns:1fr}
+  .jb-sidebar{position:relative;height:auto}
+  .jb-grid{grid-template-columns:1fr}
+  .jb-two{grid-template-columns:1fr}
+  .jb-main{padding:20px}
+}
+</style></head>
+<body>
+<div class="jb-shell">
+  <aside class="jb-sidebar">
+    <div class="jb-brand"><img src="logo-jb.png" alt="JAM'BOUYO"><div><strong>JAM'BOUYO</strong><small>Academy</small></div></div>
+    <nav class="jb-menu"><button class="active" onclick="showSection(event, 'formations')">📚 Mes formations</button>
+<button onclick="showSection(event, 'notifications')">🔔 Notifications</button>
+<button onclick="showSection(event, 'live')">🎥 Cours en direct</button>
+<button onclick="showSection(event, 'supports')">📄 Supports</button>
+<button onclick="showSection(event, 'videos')">🎬 Vidéos</button>
+<button onclick="showSection(event, 'exercices')">📝 Exercices</button>
+<button onclick="showSection(event, 'notes')">📊 Mes notes</button>
+<button onclick="showSection(event, 'certificats')">🏆 Certificats</button><a href="#" onclick="logout()">↩ Déconnexion</a></nav>
+  </aside>
+  <main class="jb-main">
+    <div class="jb-top">
+      <div><h1>Mon espace étudiant</h1><p class="jb-sub">Retrouvez vos cours, supports, exercices, notes et certificats.</p></div>
+      <div class="jb-user" id="userLabel">Chargement...</div>
+    </div>
+    <div class="jb-grid"><div class="jb-card"><div class="jb-icon">📚</div><h3>Mes formations</h3><p>Vos formations et modules attribués.</p></div>
+<div class="jb-card"><div class="jb-icon">🎥</div><h3>Cours en direct</h3><p>Accès aux lives Jitsi de vos professeurs.</p></div>
+<div class="jb-card"><div class="jb-icon">🏆</div><h3>Certificats</h3><p>Vos certificats disponibles après validation.</p></div></div>
+    
+<section id="formations" class="jb-section active">
+  <div class="jb-panel"><h2>📚 Mes formations</h2><div class="jb-empty">Vos formations apparaîtront ici après inscription par l’administrateur.</div></div>
+</section>
+<section id="notifications" class="jb-section">
+  <div class="jb-panel"><h2>🔔 Mes notifications</h2><div class="jb-empty">Aucune notification pour le moment.</div></div>
+</section>
+<section id="live" class="jb-section">
+  <div class="jb-panel"><h2>🎥 Mes cours en direct</h2><div class="jb-empty">Les lives créés par vos professeurs apparaîtront ici.</div></div>
+</section>
+<section id="supports" class="jb-section">
+  <div class="jb-panel"><h2>📄 Supports</h2><div class="jb-empty">Les PDF, Word et PowerPoint déposés par vos professeurs apparaîtront ici.</div></div>
+</section>
+<section id="videos" class="jb-section">
+  <div class="jb-panel"><h2>🎬 Vidéos de cours</h2><div class="jb-empty">Les vidéos ajoutées par vos professeurs apparaîtront ici.</div></div>
+</section>
+<section id="exercices" class="jb-section">
+  <div class="jb-panel"><h2>📝 Exercices</h2><div class="jb-empty">Aucun exercice disponible pour le moment.</div></div>
+</section>
+<section id="notes" class="jb-section">
+  <div class="jb-panel"><h2>📊 Mes notes</h2><div class="jb-empty">Vos notes apparaîtront ici après correction.</div></div>
+</section>
+<section id="certificats" class="jb-section">
+  <div class="jb-panel"><h2>🏆 Certificats</h2><div class="jb-empty">Vos certificats seront disponibles ici après validation.</div></div>
+</section>
+
+  </main>
+</div>
+<script type="module">
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+let supabase;
+async function initAuth(requiredRole){
+  const cfg = await fetch('/api/config').then(r=>r.json());
+  supabase = createClient(cfg.supabaseUrl, cfg.supabaseAnonKey);
+  const { data: sessionData } = await supabase.auth.getSession();
+  if(!sessionData.session) location.href='login.html';
+  const user = sessionData.session.user;
+  const { data: profile } = await supabase.from('profiles').select('*').eq('id', user.id).single();
+  if(!profile || (requiredRole && profile.role !== requiredRole)) location.href='login.html';
+  document.getElementById('userLabel').textContent = (profile.full_name || user.email) + " — " + profile.role;
+  window.currentProfile = profile;
+}
+window.showSection = function(e,id){
+  document.querySelectorAll('.jb-section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.jb-menu button').forEach(b=>b.classList.remove('active'));
+  if(e) e.currentTarget.classList.add('active');
+}
+window.logout = async function(){ if(supabase) await supabase.auth.signOut(); location.href='login.html'; }
+await initAuth('student');
+
+</script>
+</body></html>
